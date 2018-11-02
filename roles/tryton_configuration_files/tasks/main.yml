@@ -1,0 +1,56 @@
+---
+# Create directories
+- name: Create trytond directory in /etc/
+  become: yes
+  file:
+    path: /etc/trytond/
+    state: directory
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 02700
+
+- name: Create /var/log/trytond directory
+  become: yes
+  file:
+    path: /var/log/trytond/
+    state: directory
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 02700
+
+# Create files
+- name: Copy trytond configuration file to /etc/trytond/
+  become: yes
+  template:
+    src: trytond.conf.j2
+    dest: "/etc/trytond/{{ file_name }}"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
+  vars:
+    file_name: "{{ item.file_name }}"
+    listen_port: "{{ item.listen_port }}"
+    db_uri: "{{ item.db_uri }}"
+    pidfile: "{{ item.pidfile }}"
+    logconf: "{{ item.logconf }}"
+    super_pwd: "{{ item.super_pwd }}"
+    cron: "{{ item.cron }}"
+    smtp_max_connections: "{{ item.smtp_max_connections }}"
+    dev: "{{ item.dev }}"
+    verbose: "{{ item.verbose }}"
+  with_items: "{{ configuration_files }}"
+
+- name: Copy cron configuration file to /etc/trytond/
+  become: yes
+  template:
+    src: trytond.logconf.j2
+    dest: "/etc/trytond/{{ file_name }}"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
+  vars:
+    file_name: "{{ item.file_name }}"
+    log_path: "{{ item.log_path }}"
+    logger_level: "{{ item.logger_level }}"
+    handler_level: "{{ item.handler_level }}"
+  with_items: "{{ log_configuration_files }}"

@@ -1,0 +1,52 @@
+---
+- name: Environment Variables file
+  become: yes
+  template:
+    src: defaults_trytond.j2
+    dest: "/etc/default/trytond"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
+  vars:
+    OTRS_SALT: "{{ otrs_salt }}"
+    OTRS_RPC_url: "{{ otrs_rpc_url }}"
+    OTRS_RPC_user: "{{ otrs_rpc_user }}"
+    OTRS_RPC_passw: "{{ otrs_rpc_passw }}"
+
+- name: Create Systemd service
+  become: yes
+  template:
+    src: trytond.service.j2
+    dest: "/etc/systemd/system/trytond@.service"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
+  vars:
+    virtualenv_path: "{{ venv_path }}"
+    eticom_path: "{{ tryton_path }}"
+
+- name: Create Cron Systemd service
+  become: yes
+  template:
+    src: trytond-cron.service.j2
+    dest: "/etc/systemd/system/trytond-cron.service"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
+  vars:
+    virtualenv_path: "{{ venv_path }}"
+    eticom_path: "{{ tryton_path }}"
+
+- name: Enable Systemd service
+  become: yes
+  systemd:
+    name: "{{ item }}.service"
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+  with_items:
+    - "trytond-cron"
+    - "trytond@trytond1"
+    - "trytond@trytond2"
+    - "trytond@trytond3"
+    - "trytond@trytond4"

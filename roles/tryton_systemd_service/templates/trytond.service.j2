@@ -1,0 +1,11 @@
+[Unit]
+Description=Tryton server
+
+[Service]
+ExecStart={{ virtualenv_path }}/bin/python {{ eticom_path }}/trytond/bin/trytond -c /etc/trytond/%I.conf --logconf /etc/trytond/%I.logconf
+EnvironmentFile=/etc/default/trytond
+
+User={{ tryton_user }}
+
+[Install]
+Alias=%I.service

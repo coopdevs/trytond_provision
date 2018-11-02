@@ -1,0 +1,24 @@
+[loggers]
+keys = root
+
+[handlers]
+keys = trfhand
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = {{ logger_level }}
+handlers = trfhand
+
+[handler_trfhand]
+class = handlers.TimedRotatingFileHandler
+formatter = generic
+level = {{ handler_level }}
+# path, when, interval, backupcount, encoding
+args = ('{{ log_path }}', 'd', 1, 7, 'utf-8')
+
+[formatter_generic]
+class = logging.Formatter
+format = %(process)d - [%(asctime)s] %(levelname)s:%(name)s:%(message)s
+datefmt = %a %b %d %H:%M:%S %Y

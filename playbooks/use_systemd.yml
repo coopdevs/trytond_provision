@@ -1,0 +1,9 @@
+---
+- name: Systemd services and environment variables
+  hosts: tryton
+  roles:
+    - role: tryton_configuration_files
+      tags: config
+
+    - role: tryton_systemd_service
+      tags: service

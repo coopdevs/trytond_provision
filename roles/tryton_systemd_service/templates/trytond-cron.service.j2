@@ -1,0 +1,11 @@
+[Unit]
+Description=Tryton server
+
+[Service]
+ExecStart={{ virtualenv_path }}/bin/python {{ eticom_path }}/trytond/bin/trytond -c /etc/trytond/trytond.conf --logconf /etc/trytond/trytond.logconf --cron
+EnvironmentFile=/etc/default/trytond
+
+User={{ tryton_user }}
+
+[Install]
+Alias=trytond-cron.service

@@ -1,0 +1,5 @@
+[dev]
+local.tryton.coop
+
+[tryton:children]
+dev
