@@ -1,10 +1,8 @@
 ---
 # Sysadmins
-sys_admins:
+system_administrators_group: "sysadmins"
+system_administrators:
   - name: tryton
-    ssh_key: "~/.ssh/id_rsa.pub"
-    state: present
-  - name: "{{ development_user }}"
     ssh_key: "~/.ssh/id_rsa.pub"
     state: present
 
