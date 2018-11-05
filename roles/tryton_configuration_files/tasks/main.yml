@@ -40,7 +40,7 @@
     verbose: "{{ item.verbose }}"
   with_items: "{{ configuration_files }}"
 
-- name: Copy cron configuration file to /etc/trytond/
+- name: Copy trytond log configuration file to /etc/trytond/
   become: yes
   template:
     src: trytond.logconf.j2
