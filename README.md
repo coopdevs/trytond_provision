@@ -107,7 +107,17 @@ otrs_rpc_user: "rpc_user"
 otrs_rpc_passw: "rpc_passw"
 ```
 
-### Ansible Community Roles
+## Ansible Community Roles
+
+To download the community roles, you can run:
+```
+ansible-galaxy install -r requirements.yml
+```
+
+### List of Galaxy roles:
+
+* [SysAdmins Role](https://galaxy.ansible.com/coopdevs/sys-admins-role)
+
 ## Devenv
 
 We use [`devenv`](https://github.com/coopdevs/devenv) tool to manage the development environment. Check the `.devenv` configuration file.
