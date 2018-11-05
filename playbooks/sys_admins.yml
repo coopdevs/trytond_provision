@@ -1,0 +1,19 @@
+---
+# To be able to execute this playbook you'll need access to
+# the target hosts via SSH without password either with `root`
+# or any of the system administrators.
+#
+# Usage:
+#
+# > ansible-playbook playbooks/sys_admins.yml --limit=dev -u root
+# > ansible-playbook playbooks/sys_admins.yml --limit=dev
+#
+- name: Create all the users for system administration
+  hosts: tryton
+  roles:
+    - role: coopdevs.sys-admins-role
+      become: yes
+      vars:
+        sys_admin_group: "{{ system_administrators_group }}"
+        sys_admins: "{{ system_administrators }}"
+

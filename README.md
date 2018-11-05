@@ -12,6 +12,10 @@ You can find more information about Ansible [here](http://docs.ansible.com/)
 
 ## Playbooks
 
+### Create System Administrators users - `playbooks/sys_admins.yml`
+
+This playybook use the [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) of Coopdevs to manage the system administrators users.
+
 ### Use Systemd services - `playbooks/use_systemd.yml`
 
 This playbook do:
@@ -33,11 +37,12 @@ We recommend encrypting the variables with sensitive information with [Ansible V
 
 * Sysadmins
 ```YAML
-sys_admins:
+system_administrators_group: "sysadmins"
+system_administrators:
   - name: tryton
     ssh_key: "~/.ssh/id_rsa.pub"
     state: present
-  - name: "{{ development_user }}"
+  - name: "my-sysadmins-user"
     ssh_key: "~/.ssh/id_rsa.pub"
     state: present
 ```
@@ -102,7 +107,17 @@ otrs_rpc_user: "rpc_user"
 otrs_rpc_passw: "rpc_passw"
 ```
 
-### Ansible Community Roles
+## Ansible Community Roles
+
+To download the community roles, you can run:
+```
+ansible-galaxy install -r requirements.yml
+```
+
+### List of Galaxy roles:
+
+* [SysAdmins Role](https://galaxy.ansible.com/coopdevs/sys-admins-role)
+
 ## Devenv
 
 We use [`devenv`](https://github.com/coopdevs/devenv) tool to manage the development environment. Check the `.devenv` configuration file.
