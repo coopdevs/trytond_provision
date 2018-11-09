@@ -16,6 +16,21 @@ You can find more information about Ansible [here](http://docs.ansible.com/)
 
 This playybook use the [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) of Coopdevs to manage the system administrators users.
 
+### Provision - `playbooks/provision.yml`
+This playbook do:
+
+* Create Tryton user and add SSH keys
+* Create Tryton configuration files
+* Create Tryton log configuration files
+* [...]
+* Create a `systemd` unit to run Tryton instances
+* Enable the Tryton services
+
+To use, run:
+```
+ansible-playbook playbooks/provision.yml -u USER --limit HOSTGROUP <--tags TAGS>
+```
+
 ### Use Systemd services - `playbooks/use_systemd.yml`
 
 This playbook do:
@@ -30,7 +45,7 @@ To use, run:
 ansible-playbook playbooks/use_systemd.yml -u USER --limit HOSTGROUP
 ```
 
-### Configurable Variables
+## Configurable Variables
 
 This examples are from `./inventory/host_vars/local.tryton.coop/config.yml`. You can create new `host_vars` folder with your domain as name and modify this vars.
 We recommend encrypting the variables with sensitive information with [Ansible Vualt](https://docs.ansible.com/ansible/2.4/vault.html) and use `--ask-vault-pass` in the command line.
