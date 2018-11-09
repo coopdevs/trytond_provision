@@ -6,6 +6,13 @@ system_administrators:
     ssh_key: "~/.ssh/id_rsa.pub"
     state: present
 
+# Tryton users
+tryton_user: "tryton"
+tryton_users:
+  - name: daniel
+    ssh_key: "~/.ssh/id_rsa.pub"
+    state: present
+
 # Tryton vars
 venv_path: "/home/tryton/.virtualenvs/tryton"
 tryton_user: "tryton"

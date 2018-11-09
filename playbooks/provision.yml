@@ -1,0 +1,15 @@
+---
+- name:  Provision a machine to run Tryton server
+  hosts: tryton
+  roles:
+    - role: users
+      tags: users
+
+    - role: tryton_configuration_files
+      tags: config
+
+    - role: geerlingguy.postgresql
+      tags: database
+      vars:
+
+
