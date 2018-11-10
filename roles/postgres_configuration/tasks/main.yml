@@ -1,0 +1,28 @@
+---
+- include_role:
+    name: geerlingguy.postgresql
+    tasks_from: users
+  vars:
+    postgresql_users:
+      - name: '{{ db_user }}'
+        password: '{{ db_user_password }}'
+        role_attr_flags: CREATEDB
+        port: '{{ db_port }}'
+
+- include_role:
+    name: geerlingguy.postgresql
+    tasks_from: databases
+  vars:
+    postgresql_databases:
+      - name: '{{ db_name }}'
+        lc_collate: '{{ db_locales }}'
+        lc_ctype: '{{ db_locales }}'
+        owner: '{{ db_user }}'
+        port: '{{ db_port }}'
+
+- include_role:
+    name: geerlingguy.postgresql
+    tasks_from: configure
+  vars:
+    postgresql_global_config_options: '{{ db_options }}'
+    postgresql_hba_entries: '{{ db_hba_entries }}'

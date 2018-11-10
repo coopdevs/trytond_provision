@@ -10,6 +10,11 @@
 
     - role: geerlingguy.postgresql
       tags: database
+      become: yes
       vars:
+        postgresql_locales:
+          '{{ db_locales }}'
 
-
+    - role: postgres_configuration
+      tags: database
+      become: yes

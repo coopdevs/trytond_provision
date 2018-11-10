@@ -1,109 +1,128 @@
 ---
 # Sysadmins
-system_administrators_group: "sysadmins"
+system_administrators_group: 'sysadmins'
 system_administrators:
   - name: tryton
-    ssh_key: "~/.ssh/id_rsa.pub"
+    ssh_key: '~/.ssh/id_rsa.pub'
     state: present
 
 # Tryton users
-tryton_user: "tryton"
+tryton_user: 'tryton'
 tryton_users:
   - name: daniel
-    ssh_key: "~/.ssh/id_rsa.pub"
+    ssh_key: '~/.ssh/id_rsa.pub'
     state: present
 
 # Tryton vars
-venv_path: "/home/tryton/.virtualenvs/tryton"
-tryton_user: "tryton"
-tryton_path: "/opt/eticom"
+venv_path: '/home/tryton/.virtualenvs/tryton'
+tryton_user: 'tryton'
+tryton_path: '/opt/eticom'
+
+# OTRS vars
+otrs_ip: '90.173.145.213'
+otrs_salt: '1234'
+otrs_rpc_url: 'www.test.coop'
+otrs_rpc_user: 'rpc_user'
+otrs_rpc_passw: 'rpc_passw'
 
 # Postgresql vars
-database_name: "tryton"
+db_name: 'tryton'
+db_user: tryton
+db_user_password: 1234
+db_port: 5349
+db_locales: 'ca_ES.UTF-8'
+db_options:
+  - option: lc_messages
+    value: '{{ db_locales }}'
+  - option: lc_monetary
+    value: '{{ db_locales }}'
+  - option: lc_numeric
+    value: '{{ db_locales }}'
+  - option: lc_time
+    value: '{{ db_locales }}'
+db_hba_entries:
+  - { type: local, database: all, user: postgres, auth_method: peer }
+  - { type: local, database: all, user: all, auth_method: peer }
+  - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
+  - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
 
 # Tryton Configuration files
 configuration_files:
-  - file_name: "trytond.conf"
-    listen_port: "8000"
-    db_uri: "postgresql:///tryton"
-    db_copy: "/opt/eticom/backups"
-    pidfile: "/var/run/trytond/trytond.pid"
-    logconf: "/etc/trytond/trytond.logconf"
-    super_pwd: ""
-    cron: "True"
+  - file_name: 'trytond.conf'
+    listen_port: '8000'
+    db_uri: 'postgresql:///tryton'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/trytond.pid'
+    logconf: '/etc/trytond/trytond.logconf'
+    super_pwd: ''
+    cron: 'True'
     smtp_max_connections: 4
-    dev: "True"
-    verbose: "True"
-  - file_name: "trytond1.conf"
-    listen_port: "8001"
-    db_uri: "postgresql:///tryton"
-    db_copy: "/opt/eticom/backups"
-    pidfile: "/var/run/trytond/trytond1.pid"
-    logconf: "/etc/trytond/trytond1.logconf"
-    super_pwd: ""
-    cron: "False"
+    dev: 'True'
+    verbose: 'True'
+  - file_name: 'trytond1.conf'
+    listen_port: '8001'
+    db_uri: 'postgresql:///tryton'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/trytond1.pid'
+    logconf: '/etc/trytond/trytond1.logconf'
+    super_pwd: ''
+    cron: 'False'
     smtp_max_connections: 4
-    dev: "True"
-    verbose: "True"
-  - file_name: "trytond2.conf"
-    listen_port: "8002"
-    db_uri: "postgresql:///tryton"
-    db_copy: "/opt/eticom/backups"
-    pidfile: "/var/run/trytond/trytond2.pid"
-    logconf: "/etc/trytond/trytond2.logconf"
-    super_pwd: ""
-    cron: "False"
+    dev: 'True'
+    verbose: 'True'
+  - file_name: 'trytond2.conf'
+    listen_port: '8002'
+    db_uri: 'postgresql:///tryton'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/trytond2.pid'
+    logconf: '/etc/trytond/trytond2.logconf'
+    super_pwd: ''
+    cron: 'False'
     smtp_max_connections: 4
-    dev: "True"
-    verbose: "True"
-  - file_name: "trytond3.conf"
-    listen_port: "8003"
-    db_uri: "postgresql:///tryton"
-    db_copy: "/opt/eticom/backups"
-    pidfile: "/var/run/trytond/trytond3.pid"
-    logconf: "/etc/trytond/trytond3.logconf"
-    super_pwd: ""
-    cron: "False"
+    dev: 'True'
+    verbose: 'True'
+  - file_name: 'trytond3.conf'
+    listen_port: '8003'
+    db_uri: 'postgresql:///tryton'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/trytond3.pid'
+    logconf: '/etc/trytond/trytond3.logconf'
+    super_pwd: ''
+    cron: 'False'
     smtp_max_connections: 4
-    dev: "True"
-    verbose: "True"
-  - file_name: "trytond4.conf"
-    listen_port: "8004"
-    db_uri: "postgresql:///tryton"
-    db_copy: "/opt/eticom/backups"
-    pidfile: "/var/run/trytond/trytond4.pid"
-    logconf: "/etc/trytond/trytond4.logconf"
-    super_pwd: ""
-    cron: "False"
+    dev: 'True'
+    verbose: 'True'
+  - file_name: 'trytond4.conf'
+    listen_port: '8004'
+    db_uri: 'postgresql:///tryton'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/trytond4.pid'
+    logconf: '/etc/trytond/trytond4.logconf'
+    super_pwd: ''
+    cron: 'False'
     smtp_max_connections: 4
-    dev: "True"
-    verbose: "True"
+    dev: 'True'
+    verbose: 'True'
 
 # Log Tryton Configuration files
 log_configuration_files:
-  - file_name: "trytond.logconf"
-    log_path: "/var/log/trytond/trytond.log"
-    logger_level: "INFO"
-    handler_level: "INFO"
-  - file_name: "trytond1.logconf"
-    log_path: "/var/log/trytond/trytond1.log"
-    logger_level: "INFO"
-    handler_level: "INFO"
-  - file_name: "trytond2.logconf"
-    log_path: "/var/log/trytond/trytond2.log"
-    logger_level: "INFO"
-    handler_level: "INFO"
-  - file_name: "trytond3.logconf"
-    log_path: "/var/log/trytond/trytond3.log"
-    logger_level: "INFO"
-    handler_level: "INFO"
-  - file_name: "trytond4.logconf"
-    log_path: "/var/log/trytond/trytond4.log"
-    logger_level: "INFO"
-    handler_level: "INFO"
-
-# Tryton Environment Variables
-otrs_salt: "1234"
-otrs_rpc_url: "www.test.coop"
-otrs_rpc_user: "rpc_user"
-otrs_rpc_passw: "rpc_passw"
+  - file_name: 'trytond.logconf'
+    log_path: '/var/log/trytond/trytond.log'
+    logger_level: 'INFO'
+    handler_level: 'INFO'
+  - file_name: 'trytond1.logconf'
+    log_path: '/var/log/trytond/trytond1.log'
+    logger_level: 'INFO'
+    handler_level: 'INFO'
+  - file_name: 'trytond2.logconf'
+    log_path: '/var/log/trytond/trytond2.log'
+    logger_level: 'INFO'
+    handler_level: 'INFO'
+  - file_name: 'trytond3.logconf'
+    log_path: '/var/log/trytond/trytond3.log'
+    logger_level: 'INFO'
+    handler_level: 'INFO'
+  - file_name: 'trytond4.logconf'
+    log_path: '/var/log/trytond/trytond4.log'
+    logger_level: 'INFO'
+    handler_level: 'INFO'
