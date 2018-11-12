@@ -139,6 +139,8 @@ ansible-galaxy install -r requirements.yml
 ### List of Galaxy roles:
 
 * [SysAdmins Role](https://galaxy.ansible.com/coopdevs/sys-admins-role)
+* [PostgreSQL Role](https://galaxy.ansible.com/geerlingguy.postgresql)
+* [VirtualenvWrapper Role](https://galaxy.ansible.com/lciolecki.virtualenvwrapper)
 
 ## Devenv
 
