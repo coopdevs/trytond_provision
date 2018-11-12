@@ -22,6 +22,7 @@ This playbook do:
 * Create Tryton user and add SSH keys
 * Create Tryton configuration files
 * Create Tryton log configuration files
+* Install the system packages
 * [...]
 * Install VirtualenvWrapper
 * Create virtualenv and install Python dependencies

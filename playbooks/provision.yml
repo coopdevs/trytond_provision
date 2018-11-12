@@ -5,8 +5,8 @@
     - role: users
       tags: users
 
-    - role: tryton_configuration_files
-      tags: config
+    - role: system_packages
+      tags: system
 
     - role: geerlingguy.postgresql
       tags: database
