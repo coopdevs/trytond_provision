@@ -4,3 +4,6 @@
 
 - src: geerlingguy.postgresql
   version: 1.4.4
+
+- src: lciolecki.virtualenvwrapper
+  version: v1.1.0

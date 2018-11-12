@@ -1,0 +1,19 @@
+---
+- name: Check if virtualenv is already created
+  stat:
+    path: "{{ venv_path }}"
+  register: env
+
+- name: Manually create the initial virtualenv
+  command: "virtualenv {{ venv_path }} creates={{ venv_path }}"
+  when: env.stat.isdir is undefined
+
+- name: Copy requirements
+  copy:
+    src: requirements.txt
+    dest: '/home/{{ tryton_user }}/requirements.txt'
+
+- name: Install requirements
+  pip:
+    requirements: '/home/{{ tryton_user }}/requirements.txt'
+    virtualenv: '{{ venv_path }}'

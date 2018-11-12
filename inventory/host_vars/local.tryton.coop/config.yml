@@ -19,17 +19,16 @@ tryton_user: 'tryton'
 tryton_path: '/opt/eticom'
 
 # OTRS vars
-otrs_ip: '90.173.145.213'
 otrs_salt: '1234'
 otrs_rpc_url: 'www.test.coop'
 otrs_rpc_user: 'rpc_user'
 otrs_rpc_passw: 'rpc_passw'
 
 # Postgresql vars
-db_name: 'tryton'
+db_name: tryton
 db_user: tryton
 db_user_password: 1234
-db_port: 5349
+db_port: 5432
 db_locales: 'ca_ES.UTF-8'
 db_options:
   - option: lc_messages

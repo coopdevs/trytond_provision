@@ -15,6 +15,21 @@
         postgresql_locales:
           '{{ db_locales }}'
 
+    # This role is to allow create user and database without install PostgreSQL
     - role: postgres_configuration
       tags: database
       become: yes
+
+    - role: lciolecki.virtualenvwrapper
+      #tags: virtualenv
+      vars:
+        virtualenvwrapper_version: '4.3.1'
+        virtualenvwrapper_python: /usr/bin/python
+        virtualenvwrapper_virtualenv: /usr/local/bin/virtualenv
+        virtualenvwrapper_source: /usr/local/bin/virtualenvwrapper.sh
+        virtualenvwrapper_home: '/home/{{ tryton_user }}/.virtualenvs/'
+        virtualenvwrapper_project: '/home/{{ tryton_user }}/projects/'
+        virtualenvwrapper_shell_file: '/home/{{ tryton_user }}/.bashrc'
+
+    - role: virtualenv
+      tags: virtualenv

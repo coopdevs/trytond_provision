@@ -23,6 +23,8 @@ This playbook do:
 * Create Tryton configuration files
 * Create Tryton log configuration files
 * [...]
+* Install VirtualenvWrapper
+* Create virtualenv and install Python dependencies
 * Create a `systemd` unit to run Tryton instances
 * Enable the Tryton services
 
@@ -62,9 +64,13 @@ system_administrators:
     state: present
 ```
 
-* Tryton vars
+* VirtualEnv vars:
 ```YAML
 venv_path: "/home/tryton/.virtualenvs/tryton"
+```
+
+* Tryton vars
+```YAML
 tryton_user: "tryton"
 tryton_path: "/opt/eticom"
 ```
