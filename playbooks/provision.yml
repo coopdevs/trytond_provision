@@ -33,3 +33,6 @@
 
     - role: virtualenv
       tags: virtualenv
+
+    - role: tryton_configuration_files
+      tags: config
