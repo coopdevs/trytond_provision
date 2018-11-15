@@ -6,7 +6,7 @@ Ansible project to provision and deploy a server of [Tryton](http://www.tryton.o
 
 This project has been thinked to run in Debian 9.0 (Stretch
 
-* Ansible 2.3 or last
+* Ansible 2.5.2 or last
 
 You can find more information about Ansible [here](http://docs.ansible.com/)
 
@@ -23,6 +23,8 @@ This playbook do:
 * Create Tryton configuration files
 * Create Tryton log configuration files
 * Install the system packages
+* Install PostgreSQL
+* Create PostgreSQL users and databases
 * [...]
 * Install VirtualenvWrapper
 * Create virtualenv and install Python dependencies
@@ -70,15 +72,44 @@ system_administrators:
 venv_path: "/home/tryton/.virtualenvs/tryton"
 ```
 
-* Tryton vars
+* Tryton users
 ```YAML
 tryton_user: "tryton"
-tryton_path: "/opt/eticom"
+# Users with access to Tryton user via SSH. The name ins only for document who the key is.
+tryton_user_keys:
+  - name: daniel
+    ssh_key: '~/.ssh/id_rsa.pub'
+    state: present
+```
+
+* Tryton vars:
+```YAML
+venv_name: 'tryton'
+venv_path: '/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}'
+tryton_repositories:
+  - url: 'ssh://hg@bitbucket.org/nantic/root-eticom'
+    path: '/home/{{ tryton_user }}/eticom'
+    revision: 'default'
+  - url: 'ssh://hg@bitbucket.org/nantic/flask-eticom'
+    path: '/home/{{ tryton_user }}/eticom/wwweticom'
+    revision: 'default'
 ```
 
 * Postgresql vars
 ```YAML
-database_name: "tryton"
+db_name: tryton
+db_user: tryton
+db_user_password: 1234
+db_port: 5432
+db_locales: 'ca_ES.UTF-8'
+db_options:
+  - option: lc_messages
+    value: '{{ db_locales }}'
+db_hba_entries:
+  - { type: local, database: all, user: postgres, auth_method: peer }
+  - { type: local, database: all, user: all, auth_method: peer }
+  - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
+  - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
 ```
 
 * Tryton Configuration files
