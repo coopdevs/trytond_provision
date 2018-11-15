@@ -8,17 +8,11 @@
     - role: system_packages
       tags: system
 
-    - role: geerlingguy.postgresql
+    # This is a wrapper of Geerlingguy Postgresql role to allow create user and database without install PostgreSQL
+    - role: postgres
       tags: database
       become: yes
-      vars:
-        postgresql_locales:
-          '{{ db_locales }}'
 
-    # This role is to allow create user and database without install PostgreSQL
-    - role: postgres_configuration
-      tags: database
-      become: yes
 
     - role: lciolecki.virtualenvwrapper
       #tags: virtualenv

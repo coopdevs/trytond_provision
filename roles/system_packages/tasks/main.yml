@@ -1,10 +1,4 @@
 ---
-- name: Add the Postgres repository
-  become: yes
-  apt_repository:
-    repo: deb http://apt.postgresql.org/pub/repos/apt stretch-pgdg/main amd64
-    state: present
-
 - name: Install system required packages
   become: yes
   apt:

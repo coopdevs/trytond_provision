@@ -1,17 +1,37 @@
 ---
 - include_role:
     name: geerlingguy.postgresql
+  become: yes
+  vars:
+    postgresql_locales:
+      - '{{ db_locales }}'
+    postgresql_global_config_options: '{{ db_options }}'
+
+# WARNING! Needs force restart PostgreSQL service any time
+- name: Force restart postgresql
+  become: yes
+  service:
+    name: postgresql
+    state: restarted
+
+- import_role:
+    name: geerlingguy.postgresql
     tasks_from: users
+  become: yes
   vars:
     postgresql_users:
       - name: '{{ db_user }}'
         password: '{{ db_user_password }}'
         role_attr_flags: CREATEDB
         port: '{{ db_port }}'
+      - name: '{{ tryton_user }}'
+        role_attr_flags: SUPERUSER
+        port: '{{ db_port }}'
 
-- include_role:
+- import_role:
     name: geerlingguy.postgresql
     tasks_from: databases
+  become: yes
   vars:
     postgresql_databases:
       - name: '{{ db_name }}'
@@ -20,9 +40,9 @@
         owner: '{{ db_user }}'
         port: '{{ db_port }}'
 
-- include_role:
+- import_role:
     name: geerlingguy.postgresql
     tasks_from: configure
+  become: yes
   vars:
-    postgresql_global_config_options: '{{ db_options }}'
     postgresql_hba_entries: '{{ db_hba_entries }}'
