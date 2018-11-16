@@ -8,8 +8,6 @@
     - git=1:2.11.0-3+deb9u4
     - mercurial=4.0-1+deb9u1
     - quilt=0.63-8
-    - python-pip=9.0.1-2
-    - python-dev=2.7.13-2
     - libxml2=2.9.4+dfsg1-2.2+deb9u2
     - libxml2-dev=2.9.4+dfsg1-2.2+deb9u2
     - libxslt1-dev=1.1.29-2.1

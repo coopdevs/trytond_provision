@@ -1,19 +1,53 @@
 ---
+- name: Install system required packages
+  become: yes
+  apt:
+    pkg={{ item }}
+    state=present
+  with_items:
+    - python-dev=2.7.13-2
+    - python-pip=9.0.1-2
+    - python-virtualenv=15.1.0+ds-1
+    - python-setuptools=33.1.1-1
+
+- name: Check if virtualenv is already created
+  become: yes
+  file:
+    path: "/home/{{ tryton_user }}/.virtualenvs"
+    state: directory
+    owner: '{{ tryton_user }}'
+    group: '{{ tryton_user }}'
+    mode: 0755
+
 - name: Check if virtualenv is already created
   stat:
     path: "{{ venv_path }}"
   register: env
 
 - name: Manually create the initial virtualenv
-  command: "virtualenv {{ venv_path }} creates={{ venv_path }}"
+  become: yes
+  command: "virtualenv {{ venv_path }}"
   when: env.stat.isdir is undefined
 
 - name: Copy requirements
+  become: yes
   copy:
     src: requirements.txt
     dest: '/home/{{ tryton_user }}/requirements.txt'
+    owner: '{{ tryton_user }}'
+    group: '{{ tryton_user }}'
 
 - name: Install requirements
+  become: yes
   pip:
     requirements: '/home/{{ tryton_user }}/requirements.txt'
     virtualenv: '{{ venv_path }}'
+
+- name: Set permissions for the Tryton folder and subfolders
+  become: yes
+  file:
+    dest: '{{ venv_path }}'
+    owner: '{{ tryton_user }}'
+    group: '{{ tryton_user }}'
+    mode: 0755
+    recurse: yes
