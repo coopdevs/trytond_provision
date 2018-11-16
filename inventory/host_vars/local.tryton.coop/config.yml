@@ -1,28 +1,36 @@
 ---
 # Sysadmins
-system_administrators_group: 'sysadmins'
+system_administrators_group: sysadmins
 system_administrators:
-  - name: tryton
+  - name: admin
     ssh_key: '~/.ssh/id_rsa.pub'
     state: present
 
 # Tryton users
-tryton_user: 'tryton'
+tryton_user: tryton
+# Users with access to Tryton user via SSH. The name ins only for document who the key is.
 tryton_users:
   - name: daniel
     ssh_key: '~/.ssh/id_rsa.pub'
     state: present
 
+# Virtualenv vars
+venv_name: trytond
+venv_path: "/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}"
+
 # Tryton vars
-venv_path: '/home/tryton/.virtualenvs/tryton'
-tryton_user: 'tryton'
-tryton_path: '/opt/eticom'
+tryton_path: "/home/{{ tryton_user }}/trytond"
+# You can clone more that one Tryton repository using Mercurial
+tryton_repositories:
+  - url: 'https://hg.tryton.org/trytond'
+    path: "/home/{{ tryton_user }}/trytond"
+    revision: default
 
 # OTRS vars
-otrs_salt: '1234'
+otrs_salt: 1234
 otrs_rpc_url: 'www.test.coop'
-otrs_rpc_user: 'rpc_user'
-otrs_rpc_passw: 'rpc_passw'
+otrs_rpc_user: rpc_user
+otrs_rpc_passw: rpc_passw
 
 # Postgresql vars
 db_name: tryton
@@ -32,13 +40,13 @@ db_port: 5432
 db_locales: 'ca_ES.UTF-8'
 db_options:
   - option: lc_messages
-    value: '{{ db_locales }}'
+    value: "{{ db_locales }}"
   - option: lc_monetary
-    value: '{{ db_locales }}'
+    value: "{{ db_locales }}"
   - option: lc_numeric
-    value: '{{ db_locales }}'
+    value: "{{ db_locales }}"
   - option: lc_time
-    value: '{{ db_locales }}'
+    value: "{{ db_locales }}"
 db_hba_entries:
   - { type: local, database: all, user: postgres, auth_method: peer }
   - { type: local, database: all, user: all, auth_method: peer }
@@ -48,7 +56,7 @@ db_hba_entries:
 # Tryton Configuration files
 configuration_files:
   - file_name: 'trytond.conf'
-    listen_port: '8000'
+    listen_port: 8000
     db_uri: 'postgresql:///tryton'
     db_copy: '/opt/eticom/backups'
     pidfile: '/var/run/trytond/trytond.pid'
@@ -59,44 +67,11 @@ configuration_files:
     dev: 'True'
     verbose: 'True'
   - file_name: 'trytond1.conf'
-    listen_port: '8001'
+    listen_port: 8001
     db_uri: 'postgresql:///tryton'
     db_copy: '/opt/eticom/backups'
     pidfile: '/var/run/trytond/trytond1.pid'
     logconf: '/etc/trytond/trytond1.logconf'
-    super_pwd: ''
-    cron: 'False'
-    smtp_max_connections: 4
-    dev: 'True'
-    verbose: 'True'
-  - file_name: 'trytond2.conf'
-    listen_port: '8002'
-    db_uri: 'postgresql:///tryton'
-    db_copy: '/opt/eticom/backups'
-    pidfile: '/var/run/trytond/trytond2.pid'
-    logconf: '/etc/trytond/trytond2.logconf'
-    super_pwd: ''
-    cron: 'False'
-    smtp_max_connections: 4
-    dev: 'True'
-    verbose: 'True'
-  - file_name: 'trytond3.conf'
-    listen_port: '8003'
-    db_uri: 'postgresql:///tryton'
-    db_copy: '/opt/eticom/backups'
-    pidfile: '/var/run/trytond/trytond3.pid'
-    logconf: '/etc/trytond/trytond3.logconf'
-    super_pwd: ''
-    cron: 'False'
-    smtp_max_connections: 4
-    dev: 'True'
-    verbose: 'True'
-  - file_name: 'trytond4.conf'
-    listen_port: '8004'
-    db_uri: 'postgresql:///tryton'
-    db_copy: '/opt/eticom/backups'
-    pidfile: '/var/run/trytond/trytond4.pid'
-    logconf: '/etc/trytond/trytond4.logconf'
     super_pwd: ''
     cron: 'False'
     smtp_max_connections: 4
@@ -107,21 +82,9 @@ configuration_files:
 log_configuration_files:
   - file_name: 'trytond.logconf'
     log_path: '/var/log/trytond/trytond.log'
-    logger_level: 'INFO'
-    handler_level: 'INFO'
+    logger_level: INFO
+    handler_level: INFO
   - file_name: 'trytond1.logconf'
     log_path: '/var/log/trytond/trytond1.log'
-    logger_level: 'INFO'
-    handler_level: 'INFO'
-  - file_name: 'trytond2.logconf'
-    log_path: '/var/log/trytond/trytond2.log'
-    logger_level: 'INFO'
-    handler_level: 'INFO'
-  - file_name: 'trytond3.logconf'
-    log_path: '/var/log/trytond/trytond3.log'
-    logger_level: 'INFO'
-    handler_level: 'INFO'
-  - file_name: 'trytond4.logconf'
-    log_path: '/var/log/trytond/trytond4.log'
-    logger_level: 'INFO'
-    handler_level: 'INFO'
+    logger_level: INFO
+    handler_level: INFO

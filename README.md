@@ -10,6 +10,8 @@ This project has been thinked to run in Debian 9.0 (Stretch
 
 You can find more information about Ansible [here](http://docs.ansible.com/)
 
+> :warning: This repository assume that your Tryton repository is in [Mercurial](https://www.mercurial-scm.org/). Please take care of that :warning:
+
 ## Playbooks
 
 ### Create System Administrators users - `playbooks/sys_admins.yml`
@@ -29,6 +31,7 @@ This playbook do:
 * Install Python development tools
 * Create virtualenv and install Python dependencies
 * Install NodeJS
+* Clone Tryton repository using **Mercurial**
 * Create a `systemd` unit to run Tryton instances
 * Enable the Tryton services
 
@@ -58,107 +61,83 @@ We recommend encrypting the variables with sensitive information with [Ansible V
 
 * Sysadmins
 ```YAML
-system_administrators_group: "sysadmins"
-system_administrators:
-  - name: tryton
-    ssh_key: "~/.ssh/id_rsa.pub"
-    state: present
-  - name: "my-sysadmins-user"
-    ssh_key: "~/.ssh/id_rsa.pub"
-    state: present
-```
-
-* VirtualEnv vars:
-```YAML
-venv_path: "/home/tryton/.virtualenvs/tryton"
+system_administrators_group:      # System administrators group
+system_administrators:            # List of system administrators added to the group
+  - name:                         # User name
+    ssh_key:                      # User SSH public key file path
+    state:                        # User state (present/absent)
 ```
 
 * Tryton users
 ```YAML
-tryton_user: "tryton"
-# Users with access to Tryton user via SSH. The name ins only for document who the key is.
-tryton_user_keys:
-  - name: daniel
-    ssh_key: '~/.ssh/id_rsa.pub'
-    state: present
+tryton_user:                      # User to run Tryton application
+tryton_user_keys:                 # List of users with access to Tryton user via SSH
+  - name:                         # User name
+    ssh_key:                      # User SSH public key file path
+    state:                        # User state (present/absent)
+```
+
+* VirtualEnv vars:
+```YAML
+venv_name:                        # Virtualenv name
+# Default virtualenv path is created with tryton_user and venv_name var
+# You can override set another directory in the venv_path. Feel free!
+venv_path: "/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}"
 ```
 
 * Tryton vars:
 ```YAML
-venv_name: 'tryton'
-venv_path: '/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}'
-tryton_repositories:
-  - url: 'ssh://hg@bitbucket.org/nantic/root-eticom'
-    path: '/home/{{ tryton_user }}/eticom'
-    revision: 'default'
-  - url: 'ssh://hg@bitbucket.org/nantic/flask-eticom'
-    path: '/home/{{ tryton_user }}/eticom/wwweticom'
-    revision: 'default'
+tryton_path:                      # Tryton repository path
+# You can clone more that one Tryton repository using Mercurial
+tryton_repositories:              # List of repositories to clone the Tryton project and addons
+  - url:                          # Repository URL
+    path:                         # Repository destination. You can use the tryton_path var
+    revision:                     # Repository revision to clone
 ```
 
 * Postgresql vars
 ```YAML
-db_name: tryton
-db_user: tryton
-db_user_password: 1234
-db_port: 5432
-db_locales: 'ca_ES.UTF-8'
-db_options:
-  - option: lc_messages
-    value: '{{ db_locales }}'
-db_hba_entries:
-  - { type: local, database: all, user: postgres, auth_method: peer }
-  - { type: local, database: all, user: all, auth_method: peer }
-  - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
-  - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
+# Postgresql vars
+db_name:                          # Database name
+db_user:                          # Database user name
+db_user_password:                 # Database user password
+db_port:                          # Database server port
+db_locales:                       # Database server locale
+db_options:                       # postgresql_global_config_options variable of geerlingguy.postgresql role
+db_hba_entries:                   # postgresql_hba_entries variable of geerlingguy.postgresql role
 ```
 
 * Tryton Configuration files
 ```YAML
-configuration_files:
-  - file_name: "trytond.conf"
-    listen_port: "8000"
-    db_uri: "postgresql:///tryton"
-    db_copy: "/opt/eticom/backups"
-    pidfile: "/var/run/trytond/trytond.pid"
-    logconf: "/etc/trytond/trytond.logconf"
-    super_pwd: ""
-    cron: "True"
-    smtp_max_connections: 4
-    dev: "True"
-    verbose: "True"
-  - file_name: "trytond1.conf"
-    listen_port: "8001"
-    db_uri: "postgresql:///tryton"
-    db_copy: "/opt/eticom/backups"
-    pidfile: "/var/run/trytond/trytond1.pid"
-    logconf: "/etc/trytond/trytond1.logconf"
-    super_pwd: ""
-    cron: "False"
-    smtp_max_connections: 4
-    dev: "True"
-    verbose: "True"
+configuration_files:              # List of Trytond configuration files
+  - file_name:
+    listen_port:
+    db_uri:
+    db_copy:
+    pidfile:
+    logconf:
+    super_pwd:
+    cron:
+    smtp_max_connections:
+    dev:
+    verbose:
 ```
 
 * Log Tryton Configuration files
 ```YAML
-log_configuration_files:
-  - file_name: "trytond.logconf"
-    log_path: "/var/log/trytond/trytond.log"
-    logger_level: "INFO"
-    handler_level: "INFO"
-  - file_name: "trytond1.logconf"
-    log_path: "/var/log/trytond/trytond1.log"
-    logger_level: "INFO"
-    handler_level: "INFO"
+log_configuration_files:         # List of Trytond log configuration files
+  - file_name:
+    log_path:
+    logger_level:
+    handler_level:
 ```
 
 * Tryton Environment Variables to OTRS integration
 ```YAML
-otrs_salt: "1234"
-otrs_rpc_url: "www.test.coop"
-otrs_rpc_user: "rpc_user"
-otrs_rpc_passw: "rpc_passw"
+otrs_salt:
+otrs_rpc_url:
+otrs_rpc_user:
+otrs_rpc_passw:
 ```
 
 ## Ansible Community Roles
