@@ -54,3 +54,21 @@
     logger_level: "{{ item.logger_level }}"
     handler_level: "{{ item.handler_level }}"
   with_items: "{{ log_configuration_files }}"
+
+- name: Copy Galatea configuration file
+  become: yes
+  template:
+    src: tryton_flask.conf.j2
+    dest: "{{ galatea_path }}/config-somconnexio.cfg"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
+
+- name: Copy UWSGI configuration file
+  become: yes
+  template:
+    src: uwsgi.ini.j2
+    dest: "{{ galatea_path }}/server-tryton.ini"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
