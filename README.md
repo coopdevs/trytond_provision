@@ -10,7 +10,7 @@ This project has been thinked to run in Debian 9.0 (Stretch
 
 You can find more information about Ansible [here](http://docs.ansible.com/)
 
-> :warning: This repository assume that your Tryton repository is in [Mercurial](https://www.mercurial-scm.org/). Please take care of that :warning:
+> :warning: This repository assumes that your Tryton repository is in [Mercurial](https://www.mercurial-scm.org/). Please take care of that :warning:
 
 ## Playbooks
 
@@ -130,6 +130,33 @@ log_configuration_files:         # List of Trytond log configuration files
     log_path:
     logger_level:
     handler_level:
+```
+
+* Galatea Config
+```YAML
+galatea_path:
+galatea_debug:
+galatea_debug_log:
+galatea_error_log:
+galatea_admins:
+galatea_title:
+galatea_session_cookie_name:
+galatea_cache_dir:
+galatea_media_folder:
+galatea_media_cache_folder:
+galatea_redirect_after_login:
+galatea_tryton_database:
+galatea_tryton_user:
+galatea_tryton_config:
+```
+
+* uWSGI Config
+```YAML
+# %k is a magic var translated to the number of cpu cores
+uwsgi_min_workers: '%(%k * 1/2)'
+uwsgi_init_workers: 1
+uwsgi_max_workers: '%k'
+uwsgi_listen_queue: 100
 ```
 
 * Tryton Environment Variables to OTRS integration

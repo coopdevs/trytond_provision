@@ -88,3 +88,28 @@ log_configuration_files:
     log_path: '/var/log/trytond/trytond1.log'
     logger_level: INFO
     handler_level: INFO
+
+# Galatea Config
+galatea_path: "{{ tryton_path }}/wwweticom"
+galatea_debug: True
+galatea_debug_log: "{{ galatea_path }}/wwweticom-debug.log"
+galatea_error_log: "{{ galatea_path }}/wwweticom-error.log"
+galatea_admins: "()"
+galatea_title: 'Tryton Web'
+galatea_session_cookie_name: 'wwwwtrytond'
+galatea_cache_dir: '/tmp/trytond'
+galatea_media_folder: "{{ galatea_path }}/media"
+galatea_media_cache_folder: "{{ galatea_path }}/media/cache"
+galatea_redirect_after_login: 'somconnexio.contractar-somconnexio'
+galatea_tryton_database: tryton
+galatea_tryton_user: 28
+galatea_tryton_config: '/etc/trytond/trytond.conf'
+
+# UWSGI Config
+# %k is a magic var translated to the number of cpu cores
+uwsgi_min_workers: '%(%k * 1/2)'
+uwsgi_init_workers: 1
+uwsgi_max_workers: '%k'
+uwsgi_listen_queue: 100
+
+
