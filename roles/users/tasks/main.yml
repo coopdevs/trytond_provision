@@ -13,4 +13,4 @@
     key: "{{ lookup('file', item.ssh_key) }}"
     state: "{{ item.state }}"
   when: item.state == "present"
-  with_items: "{{ tryton_users }}"
+  with_items: "{{ tryton_user_keys }}"
