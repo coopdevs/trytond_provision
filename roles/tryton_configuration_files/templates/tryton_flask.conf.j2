@@ -1,0 +1,44 @@
+DEBUG = '{{ galatea_debug }}'
+DEBUG_LOG = '{{ galatea_debug_log }}'
+ERROR_LOG = '{{ galatea_error_log }}'
+
+ADMINS = {{ galatea_admins }}
+TITLE = '{{ galatea_title }}'
+LANGUAGE = 'es'
+ACCEPT_LANGUAGES = {'en_US': 'English', 'es_ES': 'Spanish', 'ca_ES': 'Catalan'}
+BASE_URL = ''
+AUTHOR = ''
+SECRET_KEY = ''
+SESSION_COOKIE_NAME = '{{ galatea_session_cookie_name }}'
+THEME = 'default'
+MINIFY = False
+CACHE_TYPE = 'filesystem'
+CACHE_DIR = '{{ galatea_cache_dir }}'
+CACHE_TIMEOUT = 3600
+TIMEZONE = 'Europe/Madrid'
+
+MEDIA_FOLDER = '{{ galatea_media_folder }}'
+MEDIA_URL = '/media/'
+MEDIA_CACHE_FOLDER = '{{ galatea_media_cache_folder }}'
+MEDIA_CACHE_URL = '/media/cache/'
+BASE_IMAGE = '/static/catalog-base.png'
+
+ACTIVE_LOGIN = True
+LOGIN_EXTRA_FIELDS = []
+ACTIVE_REGISTRATION = True
+LEN_PASSWORD = 6
+REGISTRATION_VAT = False
+REGISTRATION_VAT_CHECK_CUSTOMER = True
+DEFAULT_COUNTRY = 'es'
+DEFAULT_CURRENCY = '&euro;'
+REDIRECT_AFTER_LOGIN = '{{ galatea_redirect_after_login }}'
+
+TRYTON_DATABASE = '{{ galatea_tryton_database }}'
+TRYTON_USER = '{{ galatea_tryton_user }}'
+TRYTON_CONFIG = '{{ galatea_tryton_config }}'
+
+TRYTON_GALATEA_SITE = 4
+TRYTON_COMPANY = 1
+TRYTON_LOCATIONS = [4]
+
+PORT = 5000

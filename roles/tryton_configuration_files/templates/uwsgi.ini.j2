@@ -1,0 +1,50 @@
+[uwsgi]
+# http://uwsgi-docs.readthedocs.org/en/latest/Options.html
+
+path = {{ galatea_path }}
+
+master = true
+
+socket = /tmp/flask-uwsgi.sock
+chmod = 666
+
+chdir = %(path)
+
+module = app:app
+# It will force uWSGI to completely load your app one time per each worker.
+lazy-apps = true
+
+
+
+# set cheaper algorithm to use
+# Could be (uwsgi --cheaper-algos-list): busyness, spare, backlog, manual
+# https://uwsgi-docs.readthedocs.org/en/latest/Cheaper.html
+cheaper-algo = busyness
+# minimum number of workers to keep at all times
+# %k is a magic var translated to the number of cpu cores
+cheaper = {{ uwsgi_min_workers }}
+# number of workers to spawn at startup
+cheaper-initial = {{ uwsgi_init_workers }}
+# maximum number of workers that can be spawned
+workers = {{ uwsgi_max_workers }}
+# how many workers should be spawned at a time
+cheaper-step = 1
+# Specifies the window, in seconds, for tracking the average busyness of workers
+cheaper-overload = 40
+cheaper-busyness-backlog-alert = 3
+cheaper-busyness-verbose = false
+
+
+enable-threads = true
+listen = {{ uwsgi_listen_queue }}
+
+check-static = %(path)/static/
+offload-threads = 4
+
+pidfile = %(path)/uwsgi.pid
+daemonize = %(path)/uwsgi.log
+logformat = %(addr) - %(user) [%(ltime)] "%(method) %(uri) %(proto)" %(status) %(size) "%(referer)" "%(uagent)"
+
+vacumm = true
+
+stats = :5010
