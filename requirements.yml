@@ -7,3 +7,6 @@
 
 - src: lciolecki.virtualenvwrapper
   version: v1.1.0
+
+- src: geerlingguy.nodejs
+  version: 4.2.2

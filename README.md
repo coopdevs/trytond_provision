@@ -28,6 +28,7 @@ This playbook do:
 * [...]
 * Install VirtualenvWrapper
 * Create virtualenv and install Python dependencies
+* Install NodeJS
 * Create a `systemd` unit to run Tryton instances
 * Enable the Tryton services
 
@@ -171,7 +172,7 @@ ansible-galaxy install -r requirements.yml
 
 * [SysAdmins Role](https://galaxy.ansible.com/coopdevs/sys-admins-role)
 * [PostgreSQL Role](https://galaxy.ansible.com/geerlingguy.postgresql)
-* [VirtualenvWrapper Role](https://galaxy.ansible.com/lciolecki.virtualenvwrapper)
+* [NodeJS Role](https://galaxy.ansible.com/geerlingguy.nodejs)
 
 ## Devenv
 

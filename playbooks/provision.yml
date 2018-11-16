@@ -16,5 +16,12 @@
     - role: virtualenv
       tags: virtualenv
 
+    - role: geerlingguy.nodejs
+      tags: npm
+      become: yes
+      vars:
+        nodejs_version: "8.x"
+        nodejs_install_npm_user: "{{ tryton_user }}"
+
     - role: tryton_configuration_files
       tags: config
