@@ -26,7 +26,7 @@ This playbook do:
 * Install PostgreSQL
 * Create PostgreSQL users and databases
 * [...]
-* Install VirtualenvWrapper
+* Install Python development tools
 * Create virtualenv and install Python dependencies
 * Install NodeJS
 * Create a `systemd` unit to run Tryton instances
