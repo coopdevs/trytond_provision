@@ -8,7 +8,7 @@
         vsftpd_users:
            - username: "{{ ftp_user }}"
              name: FTP User
-             password: "{{ ftp_password }}"
+             password: "{{ ftp_password | password_hash('sha256', ftp_password_salt) }}"
         vsftpd_config:
           listen_port: 990
           local_enable: YES
