@@ -54,6 +54,10 @@ To use, run:
 ansible-playbook playbooks/use_systemd.yml -u USER --limit HOSTGROUP
 ```
 
+### Install and configure a FTP server - `playbooks/ftp.yml`
+
+This playbook use the [`vsftpd` role](https://github.com/weareinteractive/vsftpd) to manage the FTP server.
+
 ## Configurable Variables
 
 This examples are from `./inventory/host_vars/local.tryton.coop/config.yml`. You can create new `host_vars` folder with your domain as name and modify this vars.
@@ -165,6 +169,12 @@ otrs_salt:
 otrs_rpc_url:
 otrs_rpc_user:
 otrs_rpc_passw:
+```
+
+* FTP management variables
+```YAML
+ftp_user:                        # FTP user. Use a specific user to connect the FTP
+ftp_passwd:                      # FTP password
 ```
 
 ## Ansible Community Roles
