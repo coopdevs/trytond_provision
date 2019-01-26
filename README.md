@@ -174,7 +174,8 @@ otrs_rpc_passw:
 * FTP management variables
 ```YAML
 ftp_user:                        # FTP user. Use a specific user to connect the FTP
-ftp_passwd:                      # FTP password
+ftp_password:                    # FTP password
+ftp_password_salt:               # FTP password SALT to excrypt it
 ```
 
 ## Ansible Community Roles
