@@ -1,0 +1,19 @@
+---
+- name:  Provision FTP Server
+  hosts: tryton
+  roles:
+    - role: weareinteractive.vsftpd
+      become: yes
+      vars:
+        vsftpd_users:
+           - username: "{{ ftp_user }}"
+             name: FTP User
+             password: "{{ ftp_password | password_hash('sha256', ftp_password_salt) }}"
+        vsftpd_config:
+          listen_port: "{{ ftp_port }}"
+          local_enable: YES
+          write_enable: YES
+          chroot_local_user: YES
+          xferlog_enable: YES
+          log_ftp_protocol: YES
+          allow_writeable_chroot: YES

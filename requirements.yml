@@ -10,3 +10,6 @@
 
 - src: geerlingguy.nodejs
   version: 4.2.2
+
+- src: weareinteractive.vsftpd
+  version: 1.5.1
