@@ -191,8 +191,8 @@ celery_vhost:                   # VHost RabbitMQ
 
 * Flower variables
 ```YAML
-flower_user=                    # User and password to access to the Flower UI
-Flower_password=                #
+flower_user:                    # User password to access to the Flower UI
+flower_password:                # Password to access to the Flower UI
 ```
 ## Ansible Community Roles
 
