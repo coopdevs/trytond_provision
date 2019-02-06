@@ -10,6 +10,8 @@
     OTRS_RPC_url: "{{ otrs_rpc_url }}"
     OTRS_RPC_user: "{{ otrs_rpc_user }}"
     OTRS_RPC_passw: "{{ otrs_rpc_passw }}"
+    TRYTON_DATABASE: "{{ celery_tryton_database }}"
+    TRYTON_CONFIG: "{{ celery_tryton_config }}"
 
 - name: Create Systemd service
   become: yes
@@ -31,6 +33,18 @@
     virtualenv_path: "{{ venv_path }}"
     eticom_path: "{{ tryton_path }}"
 
+- name: Create Celery-Tryton Systemd service
+  become: yes
+  template:
+    src: trytond-celery.service.j2
+    dest: "/etc/systemd/system/trytond-celery.service"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0640
+  vars:
+    virtualenv_path: "{{ venv_path }}"
+    eticom_path: "{{ tryton_path }}"
+
 - name: Enable Systemd service
   become: yes
   systemd:
@@ -39,6 +53,7 @@
     state: restarted
     daemon_reload: yes
   with_items:
+    - "trytond-celery"
     - "trytond-cron"
     - "trytond@trytond1"
     - "trytond@trytond2"
