@@ -75,6 +75,7 @@ system_administrators:            # List of system administrators added to the g
 * Tryton users
 ```YAML
 tryton_user:                      # User to run Tryton application
+tryton_group:                     # Group to run Tryton systemd services
 tryton_user_keys:                 # List of users with access to Tryton user via SSH
   - name:                         # User name
     ssh_key:                      # User SSH public key file path

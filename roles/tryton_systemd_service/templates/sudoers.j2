@@ -1,0 +1,30 @@
+# Tryton Cron
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond-cron
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond-cron
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond-cron
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond-cron
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond-cron
+# Tryton 1
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond@eticom1
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond@eticom1
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond@eticom1
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond@eticom1
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond@eticom1
+# Tryton 2
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond@eticom2
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond@eticom2
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond@eticom2
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond@eticom2
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond@eticom2
+# Tryton 3
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond@eticom3
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond@eticom3
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond@eticom3
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond@eticom3
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond@eticom3
+# Tryton 4
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond@eticom4
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond@eticom4
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond@eticom4
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond@eticom4
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond@eticom4

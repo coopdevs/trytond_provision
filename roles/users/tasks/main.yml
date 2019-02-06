@@ -1,10 +1,17 @@
 ---
+- name: Create tryton group to manage the application
+  become: yes
+  group:
+    name: "{{ tryton_group }}"
+    state: "present"
+
 - name: Create app user to run the application
   become: yes
   user:
     name: "{{ tryton_user }}"
     state: "present"
     shell: "/bin/bash"
+    groups: "{{ tryton_group }}"
 
 - name: Add SSH public keys to app user
   become: yes

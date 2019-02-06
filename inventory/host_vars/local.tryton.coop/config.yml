@@ -8,6 +8,7 @@ system_administrators:
 
 # Tryton users
 tryton_user: tryton
+tryton_group: tryton
 # Users with access to Tryton user via SSH. The name ins only for document who the key is.
 tryton_users:
   - name: daniel
