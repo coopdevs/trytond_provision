@@ -189,6 +189,11 @@ celery_port:                    # RabbitMQ port
 celery_vhost:                   # VHost RabbitMQ
 ```
 
+* Flower variables
+```YAML
+flower_user=                    # User and password to access to the Flower UI
+Flower_password=                #
+```
 ## Ansible Community Roles
 
 To download the community roles, you can run:

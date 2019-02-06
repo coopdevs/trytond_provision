@@ -120,3 +120,7 @@ celery_password: 'eticom'
 celery_host: 'localhost'
 celery_port: 5672
 celery_vhost: 'eticom'
+
+# Flower vars
+flower_user: 'flower'
+flower_password: 'flower_passwd'

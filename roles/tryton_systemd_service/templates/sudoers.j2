@@ -10,6 +10,12 @@
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond-celery
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond-celery
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond-celery
+# Flower Celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond-flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond-flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond-flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond-flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond-flower
 # Tryton 1
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond@eticom1
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond@eticom1
