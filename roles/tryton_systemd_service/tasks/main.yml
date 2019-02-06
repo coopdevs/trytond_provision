@@ -18,8 +18,8 @@
   template:
     src: trytond.service.j2
     dest: "/etc/systemd/system/trytond@.service"
-    owner: "{{ tryton_user }}"
-    group: "{{ tryton_user }}"
+    owner: "root"
+    group: "root"
     mode: 0640
   vars:
     virtualenv_path: "{{ venv_path }}"
@@ -30,8 +30,8 @@
   template:
     src: trytond-cron.service.j2
     dest: "/etc/systemd/system/trytond-cron.service"
-    owner: "{{ tryton_user }}"
-    group: "{{ tryton_user }}"
+    owner: "root"
+    group: "root"
     mode: 0640
   vars:
     virtualenv_path: "{{ venv_path }}"
@@ -50,3 +50,11 @@
     - "trytond@trytond2"
     - "trytond@trytond3"
     - "trytond@trytond4"
+
+- name: Copy sudoers configuration for Tryton  administrators
+  become: yes
+  template:
+    src: sudoers.j2
+    dest: "/etc/sudoers.d/90-tryton-admins"
+    mode: 0440
+    group: "{{ tryton_user }}"
