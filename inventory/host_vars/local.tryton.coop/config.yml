@@ -104,7 +104,7 @@ galatea_media_cache_folder: "{{ galatea_path }}/media/cache"
 galatea_redirect_after_login: 'somconnexio.contractar-somconnexio'
 galatea_tryton_database: tryton
 galatea_tryton_user: 28
-galatea_tryton_config: '/etc/trytond/trytond.conf'
+galatea_tryton_config: '/etc/trytond/eticom.conf'
 
 # UWSGI Config
 # %k is a magic var translated to the number of cpu cores
@@ -113,4 +113,10 @@ uwsgi_init_workers: 1
 uwsgi_max_workers: '%k'
 uwsgi_listen_queue: 100
 
-
+# Celery Tryton
+celery_tryton_database: '{{ db_name }}'
+celery_user: 'eticom'
+celery_password: 'eticom'
+celery_host: 'localhost'
+celery_port: 5672
+celery_vhost: 'eticom'

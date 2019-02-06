@@ -179,6 +179,16 @@ ftp_password:                    # FTP password
 ftp_password_salt:               # FTP password SALT to excrypt it
 ```
 
+* Tryton Celery variables
+```YAML
+celery_tryton_database:         # Database name to use in Celery process
+celery_user:                    # User to talk with RabbitMQ
+celery_password:                # Password to the user to talk with RabbitMQ
+celery_host:                    # Host of RabbitMQ server
+celery_port:                    # RabbitMQ port
+celery_vhost:                   # VHost RabbitMQ
+```
+
 ## Ansible Community Roles
 
 To download the community roles, you can run:

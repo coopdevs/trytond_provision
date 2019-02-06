@@ -7,3 +7,5 @@
 
     - role: tryton_systemd_service
       tags: service
+      vars:
+        tryton_db_name: "{{ db_name }}"

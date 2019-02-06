@@ -4,6 +4,12 @@
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond-cron
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond-cron
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond-cron
+# Tryton Celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond-celery
 # Tryton 1
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond@eticom1
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond@eticom1
