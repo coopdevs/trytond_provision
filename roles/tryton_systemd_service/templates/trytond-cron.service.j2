@@ -2,7 +2,7 @@
 Description=Tryton server
 
 [Service]
-ExecStart={{ virtualenv_path }}/bin/python {{ eticom_path }}/trytond/bin/trytond -c /etc/trytond/trytond.conf --logconf /etc/trytond/trytond.logconf --cron
+ExecStart={{ virtualenv_path }}/bin/python {{ eticom_path }}/trytond/bin/trytond -c /etc/trytond/eticom.conf --logconf /etc/trytond/eticom.logconf --cron
 EnvironmentFile=/etc/default/trytond
 
 User={{ tryton_user }}
