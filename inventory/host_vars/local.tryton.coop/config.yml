@@ -27,17 +27,7 @@ tryton_repositories:
     path: "/home/{{ tryton_user }}/trytond"
     revision: default
 
-# OTRS vars
-otrs_salt: 1234
-otrs_rpc_url: 'www.test.coop'
-otrs_rpc_user: rpc_user
-otrs_rpc_passw: rpc_passw
-
 # Postgresql vars
-db_name: tryton
-db_user: tryton
-db_user_password: 1234
-db_port: 5432
 db_locales: 'ca_ES.UTF-8'
 db_options:
   - option: lc_messages
@@ -115,12 +105,6 @@ uwsgi_listen_queue: 100
 
 # Celery Tryton
 celery_tryton_database: '{{ db_name }}'
-celery_user: 'eticom'
-celery_password: 'eticom'
 celery_host: 'localhost'
 celery_port: 5672
 celery_vhost: 'eticom'
-
-# Flower vars
-flower_user: 'flower'
-flower_password: 'flower_passwd'
