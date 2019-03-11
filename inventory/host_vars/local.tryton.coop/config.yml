@@ -10,7 +10,7 @@ system_administrators:
 tryton_user: tryton
 tryton_group: tryton
 # Users with access to Tryton user via SSH. The name ins only for document who the key is.
-tryton_users:
+tryton_user_keys:
   - name: daniel
     ssh_key: '~/.ssh/id_rsa.pub'
     state: present
