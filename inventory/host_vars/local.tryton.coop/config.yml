@@ -20,11 +20,11 @@ venv_name: trytond
 venv_path: "/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}"
 
 # Tryton vars
-tryton_path: "/home/{{ tryton_user }}/trytond"
+tryton_path: "/opt/tryton/"
 # You can clone more that one Tryton repository using Mercurial
 tryton_repositories:
   - url: 'https://hg.tryton.org/trytond'
-    path: "/home/{{ tryton_user }}/trytond"
+    path: "/opt/tryton/"
     revision: default
 
 # OTRS vars
