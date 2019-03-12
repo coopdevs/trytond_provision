@@ -4,6 +4,7 @@
   apt:
     pkg={{ item }}
     state=present
+    update_cache=yes
   with_items:
     - git=1:2.11.0-3+deb9u4
     - mercurial=4.0-1+deb9u1
@@ -14,18 +15,20 @@
     - build-essential=12.3
     - enchant=1.6.0-11+b1
     - libffi-dev=3.2.1-6
-    - libssl-dev=1.1.0f-3+deb9u2
+    - libssl-dev=1.1.0j-1~deb9u1
     - libldap2-dev=2.4.44+dfsg-5+deb9u2
     - libsasl2-dev=2.1.27~101-g0780600+dfsg-3
     - unoconv=0.7-1.1
     - libdwarf-dev=20161124-1+deb9u1
     - libelf-dev=0.168-1
     - libunwind-dev=1.1-4.1
-    - ghostscript=9.25~dfsg-0+deb9u1
-    - libssl-dev=1.1.0f-3+deb9u2
-    - libffi-dev=3.2.1-6
-#    - libpq5=11.1-1.pgdg90+1
-#    - libpq-dev=11.1-1.pgdg90+1
+    - ghostscript=9.26a~dfsg-0+deb9u1
+    - rabbitmq-server=3.6.6-1
+    - nginx=1.10.3-1+deb9u2
 
-#    - rabbitmq-server=3.6.6-1
-#    - nginx=1.10.3-1+deb9u2
+    # TODO
+    # These packages are dependencies for postgres role setup.
+    # We want to freeze to these versions in that role.
+    #- libpq-dev=11.2-1.pgdg90+1
+    #- libpq5=11.2-1.pgdg90+1
+

@@ -2,21 +2,85 @@
 
 Ansible project to provision and deploy a server of [Tryton](http://www.tryton.org/) 3.8.
 
+This is intended to be used with this tryton repository: https://bitbucket.org/danypr92/root-eticom/src/default/
+
 ## Requeriments
 
-This project has been thinked to run in Debian 9.0 (Stretch
+This project has been thinked to run in Debian 9.0 (Stretch) mahcine.
 
-* Ansible 2.5.2 or last
+* Ansible 2.7
 
 You can find more information about Ansible [here](http://docs.ansible.com/)
 
-> :warning: This repository assumes that your Tryton repository is in [Mercurial](https://www.mercurial-scm.org/). Please take care of that :warning:
+Install ansible requirements:
+
+```commandline
+ansible-galaxy install -r requirements.yml
+```
+
+## Setup development machine
+
+You can use `devenv` to create an LXC container that you can use to provision a tryton machine. See https://github.com/coopdevs/devenv
+
+If you want to use, once `devenv` is installed, you just change dir to the root directory of this projects, where a `.devenv` configuration files can be found, and run:
+
+```commandline
+devenv
+```
+
+That should create an LXC container based in Debian Stretch. 
 
 ## Playbooks
 
 ### Create System Administrators users - `playbooks/sys_admins.yml`
 
-This playybook use the [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) of Coopdevs to manage the system administrators users.
+This playbook use the [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) of Coopdevs to manage the system administrators users.
+
+By default an user is created in the target machine, with your current user pubkey assigned.
+
+You can create new `host_vars` folder with your domain as name, or you can use the existing one (local.tryton.coop).
+Modify these vars, which you can find in file `config.yml`:
+
+```YAML
+system_administrators_group:      # System administrators group
+system_administrators:            # List of system administrators added to the group
+  - name:                         # User name
+    ssh_key:                      # User SSH public key file path
+    state:                        # User state (present/absent)
+```
+
+The first time you run it against a brand new host you need to run it as root user. You'll also need passwordless SSH access to the root user.
+
+```commandline
+ansible-playbook playbooks/sys_admins.yml --limit dev -u root
+```
+
+Run the sysadmin playbook:
+```commandline
+ansible-playbook playbooks/sys_admins.yml --limit dev -u USER 
+```
+
+For the following executions, the script will assume that your user is included in the system administrators list for the given host.
+To run the playbook as a system administrator just use the following command:
+
+```commandline
+ansible-playbook playbooks/sys_admins.yml --limit dev
+```
+
+Ansible will try to connect to the host using the system user. If your user as a system administrator is different than your local system user please run this playbook with the correct user using the -u flag.
+
+```commandline
+ansible-playbook playbooks/sys_admins.yml --limit dev -u <username>
+```
+
+Once this is done, you can check if it works with:
+```commandline
+ssh admin@local.tryton.coop
+```
+
+Change the host and user for the ones of your choice if you don't use these default ones.
+
+Now, before following provision instructions, read the [Configuration variables]() section.
 
 ### Provision - `playbooks/provision.yml`
 This playbook do:
@@ -31,18 +95,47 @@ This playbook do:
 * Install Python development tools
 * Create virtualenv and install Python dependencies
 * Install NodeJS
-* Clone Tryton repository using **Mercurial**
 * Create a `systemd` unit to run Tryton instances
 * Enable the Tryton services
 
 To use, run:
 ```
-ansible-playbook playbooks/provision.yml -u USER --limit HOSTGROUP <--tags TAGS>
+ansible-playbook playbooks/provision.yml -u USER --limit HOSTGROUP
 ```
 
+### Clone and bootstrap the tryton repository
+
+Assuming you use `admin` user, use your mercurial to clone the repository in `/opt/tryton`.
+
+```commandline
+ssh tryton@local.tryton.coop
+```
+
+Once inside container, run:
+
+```commandline
+cd /opt/tryton
+hg clone ssh://hg@bitbucket.org/danypr92/root-eticom
+./bootstrap.sh
+```
+
+During bootstrap, you probably can get some errors due to having incorrect version for some repositories. 
+Go to the repository folder indicated on the error (for instance, `config`) and run:
+
+```commandline
+hg up 3.8
+```
+
+If you are using some virtual machine or containers technology, such as docker, be sure that you clone this
+into a directory shared between the container machine and the host machine, so you can easily modify the code.
+
+ 
 ### Use Systemd services - `playbooks/use_systemd.yml`
 
-This playbook do:
+You maybe don't want to run this playbook if you want to run tryton in your machine for development purposes.
+But if you want to setup a production or staging machine, you should use systemd to keep tryton up and ready.
+
+This playbook does:
 
 * Create Tryton configuration files
 * Create Tryton log configuration files
@@ -58,7 +151,7 @@ ansible-playbook playbooks/use_systemd.yml -u USER --limit HOSTGROUP
 
 This playbook use the [`vsftpd` role](https://github.com/weareinteractive/vsftpd) to manage the FTP server.
 
-## Configurable Variables
+## Configuration variables
 
 This examples are from `./inventory/host_vars/local.tryton.coop/config.yml`. You can create new `host_vars` folder with your domain as name and modify this vars.
 We recommend encrypting the variables with sensitive information with [Ansible Vualt](https://docs.ansible.com/ansible/2.4/vault.html) and use `--ask-vault-pass` in the command line.
