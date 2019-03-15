@@ -129,6 +129,10 @@ hg up 3.8
 If you are using some virtual machine or containers technology, such as docker, be sure that you clone this
 into a directory shared between the container machine and the host machine, so you can easily modify the code.
 
+### Further development requirements
+
+You can install some development gooodies like ipython, ipdb or tryton_shell by setting var `dev_mode` to `true` in host's vars.
+(./inventory/hosts_vars/loca.tryton.coop/config.yml).
  
 ### Use Systemd services - `playbooks/use_systemd.yml`
 
