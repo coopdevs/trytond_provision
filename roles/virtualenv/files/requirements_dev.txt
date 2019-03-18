@@ -1,0 +1,2 @@
+ipdb
+tryton_shell

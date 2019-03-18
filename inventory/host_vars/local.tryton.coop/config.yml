@@ -1,4 +1,6 @@
 ---
+dev_mode: true
+
 # Sysadmins
 system_administrators_group: sysadmins
 system_administrators:

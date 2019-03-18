@@ -43,6 +43,22 @@
     requirements: '/home/{{ tryton_user }}/requirements.txt'
     virtualenv: '{{ venv_path }}'
 
+- name: Copy development requirements
+  become: yes
+  copy:
+    src: requirements_dev.txt
+    dest: '/home/{{ tryton_user }}/requirements_dev.txt'
+    owner: '{{ tryton_user }}'
+    group: '{{ tryton_user }}'
+  when: dev_mode
+
+- name: Install development requirements
+  become: yes
+  pip:
+    requirements: '/home/{{ tryton_user }}/requirements_dev.txt'
+    virtualenv: '{{ venv_path }}'
+  when: dev_mode
+
 - name: Set permissions for the Tryton folder and subfolders
   become: yes
   file:
