@@ -13,6 +13,9 @@ system_administrators:
   - name: antonio
     ssh_key: '{{ inventory_dir }}/../file/keys/antonio.pub'
     state: present
+  - name: ferran
+    ssh_key: '{{ inventory_dir }}/../file/keys/ferran.pub'
+    state: present
 
 # Tryton users
 tryton_user: administrator
