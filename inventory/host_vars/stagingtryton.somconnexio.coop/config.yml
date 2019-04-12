@@ -141,6 +141,7 @@ log_configuration_files:
     logger_level: INFO
     handler_level: INFO
 
+tryton_config: '/etc/trytond/eticom.conf'
 # Galatea Config
 galatea_path: "{{ tryton_path }}/wwweticom"
 galatea_debug: True
@@ -155,7 +156,7 @@ galatea_media_cache_folder: "{{ galatea_path }}/media/cache"
 galatea_redirect_after_login: 'somconnexio.contractar-somconnexio'
 galatea_tryton_database: eticom
 galatea_tryton_user: 28
-galatea_tryton_config: '/etc/trytond/eticom.conf'
+galatea_tryton_config: '{{ tryton_config }}'
 
 # UWSGI Config
 # %k is a magic var translated to the number of cpu cores
