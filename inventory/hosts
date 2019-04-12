@@ -1,5 +1,9 @@
+[stage]
+stagingtryton.somconnexio.coop
+
 [dev]
 local.tryton.coop
 
 [tryton:children]
 dev
+stage
