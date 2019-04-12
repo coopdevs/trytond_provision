@@ -1,5 +1,6 @@
 [stage]
 stagingtryton.somconnexio.coop
+somconnexio-stage.coopdevs.org
 
 [dev]
 local.tryton.coop
