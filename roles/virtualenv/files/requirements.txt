@@ -111,7 +111,7 @@ pyactiveresource==2.1.2
 pyAEATsii==0.2.5
 pyaml==16.12.2
 pyasn1==0.2.2
-pyBarcode==0.7
+# pyBarcode==0.7
 pycodestyle==2.3.1
 pycparser==2.17
 pydot==1.2.3
@@ -178,4 +178,4 @@ yolk==0.4.3
 zeep==2.2.0
 celery==4.2.1
 celery-tryton==0.3
-pyopencell==0.1.7
+pyopencell==0.1.8
