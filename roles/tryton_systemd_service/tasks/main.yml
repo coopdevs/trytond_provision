@@ -6,10 +6,7 @@
     dest: "/etc/default/trytond"
     mode: 0640
   vars:
-    OTRS_SALT: "{{ otrs_salt }}"
-    OTRS_RPC_url: "{{ otrs_rpc_url }}"
-    OTRS_RPC_user: "{{ otrs_rpc_user }}"
-    OTRS_RPC_passw: "{{ otrs_rpc_passw }}"
+    tryton_database: "{{ db_name }}"
 
 - name: Create Systemd service
   become: yes

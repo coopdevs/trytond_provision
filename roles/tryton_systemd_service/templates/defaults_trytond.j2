@@ -1,18 +1,26 @@
 # OTRS Environment Variables
-OTRS_SALT={{ OTRS_SALT }}
-OTRS_RPC_URL={{ OTRS_RPC_url }}
-OTRS_RPC_USER={{ OTRS_RPC_user }}
-OTRS_RPC_PASSW={{ OTRS_RPC_passw }}
+OTRS_SALT={{ otrs_salt }}
+OTRS_RPC_URL={{ otrs_rpc_url }}
+OTRS_RPC_USER={{ otrs_rpc_user }}
+OTRS_RPC_PASSW={{ otrs_rpc_passw }}
+OTRS_URL={{ otrs_url }}
+OTRS_USER={{ otrs_user }}
+OTRS_PASSW={{ otrs_password }}
 
 # Celery Tryton vars
-TRYTON_DATABASE={{ TRYTON_DATABASE }}
-TRYTON_CONFIG={{ TRYTON_CONFIG }}
-CELERY_USER={{ CELERY_USER }}
-CELERY_PASSWORD={{ CELERY_PASSWORD }}
-CELERY_HOST={{ CELERY_USER }}
-CELERY_PORT={{ CELERY_PORT }}
-CELERY_VHOST={{ CELERY_VHOST }}
+TRYTON_DATABASE={{ tryton_database }}
+TRYTON_CONFIG={{ tryton_config }}
+CELERY_USER={{ celery_user }}
+CELERY_PASSWORD={{ celery_password }}
+CELERY_HOST={{ celery_user }}
+CELERY_PORT={{ celery_port }}
+CELERY_VHOST={{ celery_vhost }}
 
 # Flower vars
-FLOWER_USER={{ FLOWER_USER }}
-FLOWER_PASSWORD={{ FLOWER_PASSWORD }}
+FLOWER_USER={{ flower_user }}
+FLOWER_PASSWORD={{ flower_password }}
+
+# OPENCELL vars
+OPENCELL_BASEURL={{ opencell_url }}
+OPENCELL_USER={{ opencell_user }}
+OPENCELL_PASSWORD={{ opencell_password }}
