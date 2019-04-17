@@ -4,9 +4,11 @@
   template:
     src: defaults_trytond.j2
     dest: "/etc/default/trytond"
+    owner: "{{ tryton_user }}"
     mode: 0640
   vars:
     tryton_database: "{{ db_name }}"
+  tags: defaults
 
 - name: Create Systemd service
   become: yes
@@ -28,6 +30,13 @@
     virtualenv_path: "{{ venv_path }}"
     eticom_path: "{{ tryton_path }}"
 
+- name: Create UWSGI Systemd service
+  become: yes
+  template:
+    src: trytond-uwsgi.service.j2
+    dest: "/etc/systemd/system/trytond-uwsgi.service"
+    mode: 0640
+
 - name: Enable Systemd service
   become: yes
   systemd:
@@ -37,6 +46,7 @@
     daemon_reload: yes
   with_items:
     - "trytond-cron"
+    - "trytond-uwsgi"
     - "trytond@trytond1"
     - "trytond@trytond2"
     - "trytond@trytond3"
@@ -48,3 +58,17 @@
     src: sudoers.j2
     dest: "/etc/sudoers.d/90-tryton-admins"
     mode: 0440
+
+- name: Create NGINX configuration link
+  become: yes
+  file:
+    src: '{{ galatea_path }}/{{ nginx_config }}'
+    dest: /etc/nginx/sites-available/eticom
+    state: link
+
+- name: Enable the NGINX configuration
+  become: yes
+  file:
+    src: /etc/nginx/sites-available/eticom
+    dest: /etc/nginx/sites-enabled/eticom
+    state: link

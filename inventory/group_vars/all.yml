@@ -1,3 +1,132 @@
 ---
 # Use correct python2.7 interpeter
 ansible_python_interpreter: "/usr/bin/python2.7"
+
+# Sysadmins
+system_administrators_group: sysadmins
+
+# Tryton users
+tryton_user: administrator
+tryton_group: administrator
+#
+# Virtualenv vars
+venv_name: eticom
+venv_path: "/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}"
+
+# Tryton vars
+tryton_path: "/home/{{ tryton_user }}/eticom"
+
+# You can clone more that one Tryton repository using Mercurial
+tryton_repositories:
+  - url: 'https://hg.tryton.org/trytond'
+    path: "/home/{{ tryton_user }}/trytond"
+    revision: default
+
+# Postgresql vars
+db_name: eticom
+db_user: eticom
+db_locales: 'ca_ES.UTF-8'
+db_options:
+  - option: lc_messages
+    value: "{{ db_locales }}"
+  - option: lc_monetary
+    value: "{{ db_locales }}"
+  - option: lc_numeric
+    value: "{{ db_locales }}"
+  - option: lc_time
+    value: "{{ db_locales }}"
+
+# Tryton Configuration files
+configuration_files:
+  - file_name: 'eticom.conf'
+    listen_port: 8000
+    db_uri: '{{ trytond_db_uri }}'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/eticom-trytond.pid'
+    logconf: '/etc/trytond/eticom.logconf'
+    super_pwd: ''
+    cron: 'True'
+    smtp_max_connections: 4
+    verbose: 'True'
+  - file_name: 'eticom1.conf'
+    listen_port: 8001
+    db_uri: '{{ trytond_db_uri }}'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/eticom1-trytond.pid'
+    logconf: '/etc/trytond/eticom1.logconf'
+    super_pwd: ''
+    cron: 'False'
+    smtp_max_connections: 4
+    verbose: 'True'
+  - file_name: 'eticom2.conf'
+    listen_port: 8002
+    db_uri: '{{ trytond_db_uri }}'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/eticom2-trytond.pid'
+    logconf: '/etc/trytond/eticom2.logconf'
+    super_pwd: ''
+    cron: 'False'
+    smtp_max_connections: 4
+    verbose: 'True'
+  - file_name: 'eticom3.conf'
+    listen_port: 8003
+    db_uri: '{{ trytond_db_uri }}'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/eticom3-trytond.pid'
+    logconf: '/etc/trytond/eticom3.logconf'
+    super_pwd: ''
+    cron: 'False'
+    smtp_max_connections: 4
+    verbose: 'True'
+  - file_name: 'eticom4.conf'
+    listen_port: 8004
+    db_uri: '{{ trytond_db_uri }}'
+    db_copy: '/opt/eticom/backups'
+    pidfile: '/var/run/trytond/eticom4-trytond.pid'
+    logconf: '/etc/trytond/eticom4.logconf'
+    super_pwd: ''
+    cron: 'False'
+    smtp_max_connections: 4
+    verbose: 'True'
+
+# Log Tryton Configuration files
+log_configuration_files:
+  - file_name: 'eticom.logconf'
+    log_path: '/var/log/eticom/eticom.log'
+    logger_level: INFO
+    handler_level: INFO
+  - file_name: 'eticom1.logconf'
+    log_path: '/var/log/eticom/eticom1.log'
+    logger_level: INFO
+    handler_level: INFO
+  - file_name: 'eticom2.logconf'
+    log_path: '/var/log/eticom/eticom2.log'
+    logger_level: INFO
+    handler_level: INFO
+  - file_name: 'eticom3.logconf'
+    log_path: '/var/log/eticom/eticom3.log'
+    logger_level: INFO
+    handler_level: INFO
+  - file_name: 'eticom4.logconf'
+    log_path: '/var/log/eticom/eticom4.log'
+    logger_level: INFO
+    handler_level: INFO
+
+tryton_config: '/etc/trytond/eticom.conf'
+
+# Galatea Config
+galatea_path: "{{ tryton_path }}/wwweticom"
+galatea_debug: True
+galatea_debug_log: "{{ galatea_path }}/wwweticom-debug.log"
+galatea_error_log: "{{ galatea_path }}/wwweticom-error.log"
+galatea_admins: "()"
+galatea_title: 'SomConnexio Web'
+galatea_session_cookie_name: 'wwwwtrytond'
+galatea_cache_dir: '/tmp/trytond'
+galatea_media_folder: "{{ galatea_path }}/media"
+galatea_media_cache_folder: "{{ galatea_path }}/media/cache"
+galatea_redirect_after_login: 'somconnexio.contractar-somconnexio'
+galatea_tryton_database: '{{ db_name }}'
+galatea_tryton_user: 28
+galatea_tryton_config: '{{ tryton_config }}'
+

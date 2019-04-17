@@ -2,7 +2,7 @@
 stagingtryton.somconnexio.coop
 
 [dev]
-local.tryton.coop
+local.somconnexio.coop
 
 [tryton:children]
 dev

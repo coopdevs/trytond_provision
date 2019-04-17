@@ -1,26 +1,29 @@
 # OTRS Environment Variables
-OTRS_SALT={{ otrs_salt }}
-OTRS_RPC_URL={{ otrs_rpc_url }}
-OTRS_RPC_USER={{ otrs_rpc_user }}
-OTRS_RPC_PASSW={{ otrs_rpc_passw }}
-OTRS_URL={{ otrs_url }}
-OTRS_USER={{ otrs_user }}
-OTRS_PASSW={{ otrs_password }}
+OTRS_SALT="{{ otrs_salt }}"
+OTRS_RPC_URL="{{ otrs_rpc_url }}"
+OTRS_RPC_USER="{{ otrs_rpc_user }}"
+OTRS_RPC_PASSW="{{ otrs_rpc_passw }}"
+OTRS_URL="{{ otrs_url }}"
+OTRS_USER="{{ otrs_user }}"
+OTRS_PASSW="{{ otrs_password }}"
 
 # Celery Tryton vars
-TRYTON_DATABASE={{ tryton_database }}
-TRYTON_CONFIG={{ tryton_config }}
-CELERY_USER={{ celery_user }}
-CELERY_PASSWORD={{ celery_password }}
-CELERY_HOST={{ celery_user }}
-CELERY_PORT={{ celery_port }}
-CELERY_VHOST={{ celery_vhost }}
+TRYTON_DATABASE="{{ tryton_database }}"
+TRYTON_CONFIG="{{ tryton_config }}"
+CELERY_USER="{{ celery_user }}"
+CELERY_PASSWORD="{{ celery_password }}"
+CELERY_HOST="{{ celery_user }}"
+CELERY_PORT="{{ celery_port }}"
+CELERY_VHOST="{{ celery_vhost }}"
 
 # Flower vars
-FLOWER_USER={{ flower_user }}
-FLOWER_PASSWORD={{ flower_password }}
+FLOWER_USER="{{ flower_user }}"
+FLOWER_PASSWORD="{{ flower_password }}"
 
 # OPENCELL vars
-OPENCELL_BASEURL={{ opencell_url }}
-OPENCELL_USER={{ opencell_user }}
-OPENCELL_PASSWORD={{ opencell_password }}
+OPENCELL_BASEURL="{{ opencell_url }}"
+OPENCELL_USER="{{ opencell_user }}"
+OPENCELL_PASSWORD="{{ opencell_password }}"
+
+# PYTHONPATH to uWSGI project
+PYTHONPATH=~/eticom/trytond:$PYTHONPATH

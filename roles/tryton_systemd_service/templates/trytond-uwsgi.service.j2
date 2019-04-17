@@ -1,0 +1,19 @@
+[Unit]
+Description=uWSGI Module - Trytond Flask
+After=syslog.target
+
+[Service]
+User={{ tryton_user }}
+
+ExecStart={{ venv_path }}/bin/uwsgi --ini {{ galatea_path }}/{{ uwsgi_config }}
+Restart=always
+
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=main
+
+EnvironmentFile=/etc/default/trytond
+
+[Install]
+WantedBy=multi-user.target
