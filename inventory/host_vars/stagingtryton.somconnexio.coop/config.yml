@@ -19,7 +19,7 @@ system_administrators:
 
 # Tryton users
 tryton_user: administrator
-tryton_group: tryton
+tryton_group: administrator
 
 # Users with access to Tryton user via SSH. The name ins only for document who the key is.
 tryton_user_keys:

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -a
+source {{ tryton_defaults }}
+{{ venv_path }}/bin/uwsgi --ini {{ galatea_path}}/server-eticom-dev.ini --honour-stdin

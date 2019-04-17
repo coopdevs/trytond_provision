@@ -1,5 +1,9 @@
 ---
+# Install some Python development tools
 dev_mode: true
+
+# Set Tryton in development mode
+tryton_dev: True
 
 # Sysadmins
 system_administrators:

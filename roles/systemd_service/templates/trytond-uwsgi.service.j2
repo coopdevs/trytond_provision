@@ -1,3 +1,6 @@
+# TODO: This unit fails because not have the PYTHONPATH correctly set.
+# We put the var in the default trytond environment file, but the Python process can access to the correct folders.
+
 [Unit]
 Description=uWSGI Module - Trytond Flask
 After=syslog.target
@@ -13,6 +16,8 @@ Type=notify
 StandardError=syslog
 NotifyAccess=main
 
+# TODO: This Environment stament not works
+Environment=PYTHONPATH=~/eticom/trytond
 EnvironmentFile=/etc/default/trytond
 
 [Install]

@@ -1,0 +1,12 @@
+[Unit]
+Description=Tryton Flower Celery server
+
+[Service]
+ExecStart={{ virtualenv_path }}/bin/celery flower --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
+EnvironmentFile=/etc/default/trytond
+
+User={{ tryton_user }}
+
+[Install]
+Alias=trytond-flower.service
+WantedBy=multi-user.target

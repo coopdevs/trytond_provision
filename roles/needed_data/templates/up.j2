@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -a
+source {{ tryton_defaults }}
+{{ venv_path }}/bin/python {{ tryton_path }}/trytond/bin/trytond -c {{ tryton_config }} --dev -vvvvv -d {{ db_name }}
+

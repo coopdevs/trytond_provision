@@ -37,6 +37,7 @@
     cron: "{{ item.cron }}"
     smtp_max_connections: "{{ item.smtp_max_connections }}"
     verbose: "{{ item.verbose }}"
+    dev: "{{ tryton_dev }}"
   with_items: "{{ configuration_files }}"
 
 - name: Copy trytond log configuration file to /etc/trytond/

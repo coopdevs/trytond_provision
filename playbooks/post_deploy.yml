@@ -1,0 +1,13 @@
+---
+- name: Manage the task post deploy
+  hosts: tryton
+  roles:
+    - role: virtualenv
+      tags: virtualenv
+
+    - role: systemd_service
+      tags: service
+
+    - role: needed_data
+      become: yes
+      tags: web

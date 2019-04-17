@@ -15,6 +15,7 @@ venv_path: "/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}"
 
 # Tryton vars
 tryton_path: "/home/{{ tryton_user }}/eticom"
+tryton_defaults: "/etc/default/trytond"
 
 # You can clone more that one Tryton repository using Mercurial
 tryton_repositories:

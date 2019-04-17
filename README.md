@@ -91,12 +91,10 @@ This playbook do:
 * Install the system packages
 * Install PostgreSQL
 * Create PostgreSQL users and databases
-* [...]
 * Install Python development tools
 * Create virtualenv and install Python dependencies
 * Install NodeJS
-* Create a `systemd` unit to run Tryton instances
-* Enable the Tryton services
+* Create Tryton configuration files
 
 To use, run:
 ```
@@ -122,7 +120,7 @@ When the repository was clonned, active the virtualenv and execute the `boostrap
 
 ```commandline
 source ~/.virtualenvs/eticom/bin/activate
-cd eticom
+cd ~/eticom
 ./bootstrap.sh
 ```
 
@@ -136,13 +134,21 @@ hg up 3.8
 If you are using some virtual machine or containers technology, such as docker, be sure that you clone this
 into a directory shared between the container machine and the host machine, so you can easily modify the code.
 
+Also you can get some error and the process can be freeze, but you can click `enter` and the process continue. When the process ends, you need to check that the `opencell_somconnexio` and the `contract_changes_wizards_somconnexio` are cloned, if does not, please clone the repos manually:
+
+```commandline
+git clone -b master -q git@gitlab.com:coopdevs/opencell_somconnexio_tryton.git /home/administrator/eticom/modules/opencell_somconnexio
+git clone -b master -q git@gitlab.com:coopdevs/contract_changes_wizards_somconnexio.git /home/administrator/eticom/modules/contract_changes_wizards_somconnexio
+```
+
 ### Manual: Clone and bootstrap the galatea repository
 
 Assuming you use `administrator` user, use your mercurial to clone the repository in `~/eticom/wwweticom`:
 
 ```commandline
 cd ~/eticom
-hg clone ssh://hg@bitbucket.org/danypr92/flask-eticom wwweticom
+hg clone ssh://hg@bitbucket.org/nantic/flask-eticom wwweticom
+cd ~/eticom/wwweticom
 ./bootstrap.sh
 ```
 
@@ -159,21 +165,40 @@ cd ~/eticom/wwweticom
 You can install some development gooodies like ipython, ipdb or tryton_shell by setting var `dev_mode` to `true` in host's vars.
 (./inventory/hosts_vars/loca.tryton.coop/config.yml).
 
-### Use Systemd services - `playbooks/use_systemd.yml`
+### Post deploy - `playbooks/post_deploy.yml`
 
 You maybe don't want to run this playbook if you want to run tryton in your machine for development purposes.
 But if you want to setup a production or staging machine, you should use systemd to keep tryton up and ready.
 
 This playbook does:
 
-* Create Tryton configuration files
+* Fix the Python packages version
 * Create Tryton log configuration files
 * Create a `systemd` unit to run Tryton instances
 * Enable the Tryton services
+* Copy the scripts to run in development mode
+* Copy the data needed to run the web forms
 
 To use, run:
 ```
-ansible-playbook playbooks/use_systemd.yml -u USER --limit HOSTGROUP
+ansible-playbook playbooks/post_deploy.yml -u USER --limit HOSTGROUP
+```
+
+### Manual: Create the database
+
+After provision and deploy our application and after run the `post_deploy` tasks, we need create a usable database.
+We use a dump to recreate a db un local environment. You need get some db backup and fill the `eticom` datebase with it:
+
+```commandline
+psql -h 127.0.0.1 -U eticom -W eticom < <YOUR-DUMP>
+```
+
+After run this migration, you can use the scripts at home to execute the forms, Tryton server or update the list of modules:
+
+```commandline
+./up                        - Start the Tryton server to debug
+./up-web                    - Start the web forms to debug
+./update <module_name>      - Update the Tryton module
 ```
 
 ### Install and configure a FTP server - `playbooks/ftp.yml`
@@ -182,7 +207,7 @@ This playbook use the [`vsftpd` role](https://github.com/weareinteractive/vsftpd
 
 ## Configuration variables
 
-This examples are from `./inventory/host_vars/local.tryton.coop/config.yml`. You can create new `host_vars` folder with your domain as name and modify this vars.
+This examples are from `./inventory/host_vars/local.somconnexio.coop/config.yml` and `secrets.yml` and from the group vars `./inventory/group_vars/all.yml`. You can create new `host_vars` folder with your domain as name and modify this vars.
 We recommend encrypting the variables with sensitive information with [Ansible Vualt](https://docs.ansible.com/ansible/2.4/vault.html) and use `--ask-vault-pass` in the command line.
 
 * Sysadmins
