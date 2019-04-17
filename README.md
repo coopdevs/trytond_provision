@@ -57,7 +57,7 @@ ansible-playbook playbooks/sys_admins.yml --limit dev -u root
 
 Run the sysadmin playbook:
 ```commandline
-ansible-playbook playbooks/sys_admins.yml --limit dev -u USER 
+ansible-playbook playbooks/sys_admins.yml --limit dev -u USER
 ```
 
 For the following executions, the script will assume that your user is included in the system administrators list for the given host.
@@ -103,24 +103,31 @@ To use, run:
 ansible-playbook playbooks/provision.yml -u USER --limit HOSTGROUP
 ```
 
-### Clone and bootstrap the tryton repository
+### Manual: Clone and bootstrap the tryton repository
 
-Assuming you use `admin` user, use your mercurial to clone the repository in `/opt/tryton`.
+Assuming you use `administrator` user, use your mercurial to clone the repository in `~/eticom`:
 
 ```commandline
-ssh tryton@local.tryton.coop
+ssh administrator@local.somconnexio.coop -A
 ```
+> The `-A` argument is to keep with you your ssh-agent in the ssh connection.
 
 Once inside container, run:
 
 ```commandline
-cd /opt/tryton
-hg clone ssh://hg@bitbucket.org/danypr92/root-eticom
+hg clone ssh://hg@bitbucket.org/danypr92/root-eticom eticom
+```
+
+When the repository was clonned, active the virtualenv and execute the `boostrap` script
+
+```commandline
+source ~/.virtualenvs/eticom/bin/activate
+cd eticom
 ./bootstrap.sh
 ```
 
-During bootstrap, you probably can get some errors due to having incorrect version for some repositories. 
-Go to the repository folder indicated on the error (for instance, `config`) and run:
+During bootstrap, you probably can get some errors due to having incorrect version for some repositories.
+Go to the repository folder indicated on the error (for instance, `config` or `tasks`) and run:
 
 ```commandline
 hg up 3.8
@@ -129,11 +136,29 @@ hg up 3.8
 If you are using some virtual machine or containers technology, such as docker, be sure that you clone this
 into a directory shared between the container machine and the host machine, so you can easily modify the code.
 
+### Manual: Clone and bootstrap the galatea repository
+
+Assuming you use `administrator` user, use your mercurial to clone the repository in `~/eticom/wwweticom`:
+
+```commandline
+cd ~/eticom
+hg clone ssh://hg@bitbucket.org/danypr92/flask-eticom wwweticom
+./bootstrap.sh
+```
+
+When the repository was clonned, active the virtualenv and execute the `boostrap` script
+
+```commandline
+source ~/.virtualenvs/eticom/bin/activate
+cd ~/eticom/wwweticom
+./bootstrap.sh
+```
+
 ### Further development requirements
 
 You can install some development gooodies like ipython, ipdb or tryton_shell by setting var `dev_mode` to `true` in host's vars.
 (./inventory/hosts_vars/loca.tryton.coop/config.yml).
- 
+
 ### Use Systemd services - `playbooks/use_systemd.yml`
 
 You maybe don't want to run this playbook if you want to run tryton in your machine for development purposes.
