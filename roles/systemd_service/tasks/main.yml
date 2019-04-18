@@ -3,10 +3,12 @@
   become: yes
   template:
     src: defaults_trytond.j2
-    dest: "/etc/default/trytond"
+    dest: "{{ tryton_defaults }}"
+    owner: "{{ tryton_user }}"
     mode: 0640
   vars:
     tryton_database: "{{ db_name }}"
+  tags: defaults
 
 - name: Create Systemd service
   become: yes
@@ -28,6 +30,14 @@
     virtualenv_path: "{{ venv_path }}"
     eticom_path: "{{ tryton_path }}"
 
+# TODO: This unit not works because the PYTHONPATH is not correctly set
+# - name: Create UWSGI Systemd service
+#   become: yes
+#   template:
+#     src: trytond-uwsgi.service.j2
+#     dest: "/etc/systemd/system/trytond-uwsgi.service"
+#     mode: 0640
+
 - name: Enable Systemd service
   become: yes
   systemd:
@@ -37,7 +47,7 @@
     daemon_reload: yes
   with_items:
     - "trytond-cron"
-    - "trytond@trytond1"
+  # - "trytond-uwsgi"
     - "trytond@trytond2"
     - "trytond@trytond3"
     - "trytond@trytond4"

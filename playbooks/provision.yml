@@ -8,7 +8,6 @@
     - role: system_packages
       tags: system
 
-    # This is a wrapper of Geerlingguy Postgresql role to allow create user and database without install PostgreSQL
     - role: postgres
       tags: database
       become: yes
@@ -22,3 +21,22 @@
       vars:
         nodejs_version: "8.x"
         nodejs_install_npm_user: "{{ tryton_user }}"
+        nodejs_npm_global_packages:
+          # Install a specific version of a package.
+          - name: bower
+            version: 1.8.8
+          - name: grunt
+            version: "^1.0.4"
+          - name: grunt-contrib-concat
+            version: "~0.5.1"
+          - name: grunt-contrib-cssmin
+            version: "^3.0.0"
+          - name: grunt-contrib-jshint
+            version: "^2.1.0"
+          - name: grunt-contrib-uglify
+            version: "^4.0.1"
+          - name: grunt-shell
+            version: "~0.7.0"
+
+    - role: configuration_files
+      tags: config

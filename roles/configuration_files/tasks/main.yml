@@ -9,10 +9,10 @@
     group: "{{ tryton_user }}"
     mode: 02700
 
-- name: Create /var/log/trytond directory
+- name: Create /var/log/eticom directory
   become: yes
   file:
-    path: /var/log/trytond/
+    path: /var/log/eticom/
     state: directory
     owner: "{{ tryton_user }}"
     group: "{{ tryton_user }}"
@@ -36,8 +36,8 @@
     super_pwd: "{{ item.super_pwd }}"
     cron: "{{ item.cron }}"
     smtp_max_connections: "{{ item.smtp_max_connections }}"
-    dev: "{{ item.dev }}"
     verbose: "{{ item.verbose }}"
+    dev: "{{ tryton_dev }}"
   with_items: "{{ configuration_files }}"
 
 - name: Copy trytond log configuration file to /etc/trytond/
@@ -54,21 +54,3 @@
     logger_level: "{{ item.logger_level }}"
     handler_level: "{{ item.handler_level }}"
   with_items: "{{ log_configuration_files }}"
-
-- name: Copy Galatea configuration file
-  become: yes
-  template:
-    src: tryton_flask.conf.j2
-    dest: "{{ galatea_path }}/config-somconnexio.cfg"
-    owner: "{{ tryton_user }}"
-    group: "{{ tryton_user }}"
-    mode: 0640
-
-- name: Copy UWSGI configuration file
-  become: yes
-  template:
-    src: uwsgi.ini.j2
-    dest: "{{ galatea_path }}/server-tryton.ini"
-    owner: "{{ tryton_user }}"
-    group: "{{ tryton_user }}"
-    mode: 0640

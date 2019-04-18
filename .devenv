@@ -1,11 +1,11 @@
 # Vars to use in lxc-create
-NAME="tryton"
+NAME="somconnexio"
 DISTRIBUTION="debian"
 RELEASE="stretch"
 ARCH="amd64"
 HOST="local.$NAME.coop"
-PROJECT_NAME="tryton"
+PROJECT_NAME="eticom"
 PROJECT_PATH="${PWD%/*}/$PROJECT_NAME"
-DEVENV_USER="tryton"
-DEVENV_GROUP="tryton"
+DEVENV_USER="administrator"
+DEVENV_GROUP="administrator"
 PYTHON_INTERPRETER=python2.7

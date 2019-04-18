@@ -25,6 +25,6 @@ tryton_user_keys:
   - ssh_key: '~/.ssh/id_rsa.pub'
     state: present
 
-trytond_db_uri: 'postgresql://{{ db_user }}:{{ db_user_password }}@:{{ db_port }}/{{ db_name }}'
+trytond_db_uri: 'postgresql:///{{ db_name }}'
 uwsgi_config: 'server-eticom-dev.ini'
 nginx_config: 'uwsgi-dev.nginx'
