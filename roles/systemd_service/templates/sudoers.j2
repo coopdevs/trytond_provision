@@ -28,6 +28,18 @@
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop trytond@eticom4
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond@eticom4
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond@eticom4
+# Trytond Eticom Celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status eticom-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start eticom-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop eticom-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart eticom-celery
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload eticom-celery
+# Flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart flower
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload flower
 # UWSGI
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status trytond-uwsgi
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start trytond-uwsgi

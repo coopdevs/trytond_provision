@@ -38,6 +38,25 @@
 #     dest: "/etc/systemd/system/trytond-uwsgi.service"
 #     mode: 0640
 
+- name: Create Celery-Tryton Eticom Systemd service
+  become: yes
+  template:
+    src: eticom-celery.service.j2
+    dest: "/etc/systemd/system/eticom-celery.service"
+    mode: 0640
+  vars:
+    virtualenv_path: "{{ venv_path }}"
+    eticom_path: "{{ tryton_path }}"
+
+- name: Create Flower Systemd service
+  become: yes
+  template:
+    src: flower.service.j2
+    dest: "/etc/systemd/system/flower.service"
+    mode: 0640
+  vars:
+    virtualenv_path: "{{ venv_path }}"
+
 - name: Enable Systemd service
   become: yes
   systemd:
@@ -47,10 +66,13 @@
     daemon_reload: yes
   with_items:
     - "trytond-cron"
+    - "eticom-celery"
+    - "flower"
   # - "trytond-uwsgi"
-    - "trytond@trytond2"
-    - "trytond@trytond3"
-    - "trytond@trytond4"
+    - "trytond@eticom1"
+    - "trytond@eticom2"
+    - "trytond@eticom3"
+    - "trytond@eticom4"
 
 - name: Copy sudoers configuration for Tryton  administrators
   become: yes

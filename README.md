@@ -317,13 +317,39 @@ otrs_salt:
 otrs_rpc_url:
 otrs_rpc_user:
 otrs_rpc_passw:
+otrs_url:
+otrs_user:
+otrs_passw:
+```
+
+* Tryton Environment Variables to OpenCell integration
+```YAML
+opencell_url:                   # Opencell URL
+opencell_user:                  # Opencell User
+opencell_password:              # Opencell Password
+```
+
+* Tryton Celery variables
+```YAML
+celery_tryton_database:         # Database name to use in Celery process
+celery_user:                    # User to talk with RabbitMQ
+celery_password:                # Password to the user to talk with RabbitMQ
+celery_host:                    # Host of RabbitMQ server
+celery_port:                    # RabbitMQ port
+celery_vhost:                   # VHost RabbitMQ
+```
+
+* Flower variables
+```YAML
+flower_user:                    # User password to access to the Flower UI
+flower_password:                # Password to access to the Flower UI
 ```
 
 * FTP management variables
 ```YAML
-ftp_user:                        # FTP user. Use a specific user to connect the FTP
-ftp_password:                    # FTP password
-ftp_password_salt:               # FTP password SALT to excrypt it
+ftp_user:                       # FTP user. Use a specific user to connect the FTP
+ftp_password:                   # FTP password
+ftp_password_salt:              # FTP password SALT to excrypt it
 ```
 
 ## Ansible Community Roles
