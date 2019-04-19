@@ -28,7 +28,20 @@ If you want to use, once `devenv` is installed, you just change dir to the root 
 devenv
 ```
 
-That should create an LXC container based in Debian Stretch. 
+That should create an LXC container based in Debian Stretch.
+
+### Fix mount directory:
+Fix problem with #14
+
+Before continue with the documentation, please fix the mount directory in the LXC Configuration file (`/var/lxc/somconnexio/config`). Run:
+
+```commandline
+sudo vim /var/lxc/somconnexio/config
+```
+
+In vim run the next command `:%s/opt/home\/administrator/g` and save.
+
+Restart the container and continue with the documentation.
 
 ## Playbooks
 
@@ -174,6 +187,10 @@ This playbook does:
 
 * Fix the Python packages version
 * Create Tryton log configuration files
+* [Configure RabbitMQ to work with Celery](https://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html?highlight=rabbit#setting-up-rabbitmq):
+  - Create user
+  - Create vhost
+  - Enable [RabbitMQ Management Plugin](https://www.rabbitmq.com/management.html)
 * Create a `systemd` unit to run Tryton instances
 * Enable the Tryton services
 * Copy the scripts to run in development mode
