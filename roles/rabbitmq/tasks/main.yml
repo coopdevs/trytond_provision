@@ -1,0 +1,25 @@
+---
+- name: Enables the rabbitmq_management plugin
+  become: yes
+  command: "rabbitmq-plugins enable rabbitmq_management"
+  ignore_errors: yes
+
+- name: Create RabbitMQ User
+  become: yes
+  command: "rabbitmqctl add_user {{ celery_user}} {{ celery_password }}"
+  ignore_errors: yes
+
+- name: Create RabbitMQ VHost
+  become: yes
+  command: "rabbitmqctl add_vhost {{ celery_vhost }}"
+  ignore_errors: yes
+
+- name: Set RabbitMQ User tags
+  become: yes
+  command: "rabbitmqctl set_user_tags {{ celery_user}} administrator"
+  ignore_errors: yes
+
+- name: Set RabbitMQ User permissions
+  become: yes
+  command: "rabbitmqctl set_permissions -p {{ celery_vhost }} {{ celery_user}} \".*\" \".*\" \".*\""
+  ignore_errors: yes
