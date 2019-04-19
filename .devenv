@@ -6,6 +6,7 @@ ARCH="amd64"
 HOST="local.$NAME.coop"
 PROJECT_NAME="eticom"
 PROJECT_PATH="${PWD%/*}/$PROJECT_NAME"
+BASE_PATH="/home/administrator"
 DEVENV_USER="administrator"
 DEVENV_GROUP="administrator"
 PYTHON_INTERPRETER=python2.7
