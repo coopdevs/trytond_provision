@@ -48,6 +48,16 @@
     virtualenv_path: "{{ venv_path }}"
     eticom_path: "{{ tryton_path }}"
 
+- name: Create Celery-Tryton OpenCell Systemd service
+  become: yes
+  template:
+    src: opencell-celery.service.j2
+    dest: "/etc/systemd/system/opencell-celery.service"
+    mode: 0640
+  vars:
+    virtualenv_path: "{{ venv_path }}"
+    eticom_path: "{{ tryton_path }}"
+
 - name: Create Flower Systemd service
   become: yes
   template:
@@ -67,6 +77,7 @@
   with_items:
     - "trytond-cron"
     - "eticom-celery"
+    - "opencell-celery"
     - "flower"
   # - "trytond-uwsgi"
     - "trytond@eticom1"
