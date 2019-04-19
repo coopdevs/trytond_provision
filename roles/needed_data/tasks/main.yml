@@ -29,6 +29,12 @@
     dest: "/home/{{ tryton_user }}/update"
     mode: 0740
 
+- name: Remove NGINX default server
+  become: yes
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
 - name: Create NGINX configuration link
   become: yes
   file:
@@ -42,3 +48,9 @@
     src: /etc/nginx/sites-available/eticom
     dest: /etc/nginx/sites-enabled/eticom
     state: link
+
+- name: Restart NGINX
+  become: yes
+  systemd:
+    name: nginx
+    state: started
