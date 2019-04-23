@@ -28,7 +28,20 @@ If you want to use, once `devenv` is installed, you just change dir to the root 
 devenv
 ```
 
-That should create an LXC container based in Debian Stretch. 
+That should create an LXC container based in Debian Stretch.
+
+### Fix mount directory:
+Fix problem with #14
+
+Before continue with the documentation, please fix the mount directory in the LXC Configuration file (`/var/lxc/somconnexio/config`). Run:
+
+```commandline
+sudo vim /var/lxc/somconnexio/config
+```
+
+In vim run the next command `:%s/opt/home\/administrator/g` and save.
+
+Restart the container and continue with the documentation.
 
 ## Playbooks
 
@@ -174,6 +187,10 @@ This playbook does:
 
 * Fix the Python packages version
 * Create Tryton log configuration files
+* [Configure RabbitMQ to work with Celery](https://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html?highlight=rabbit#setting-up-rabbitmq):
+  - Create user
+  - Create vhost
+  - Enable [RabbitMQ Management Plugin](https://www.rabbitmq.com/management.html)
 * Create a `systemd` unit to run Tryton instances
 * Enable the Tryton services
 * Copy the scripts to run in development mode
@@ -317,13 +334,39 @@ otrs_salt:
 otrs_rpc_url:
 otrs_rpc_user:
 otrs_rpc_passw:
+otrs_url:
+otrs_user:
+otrs_passw:
+```
+
+* Tryton Environment Variables to OpenCell integration
+```YAML
+opencell_url:                   # Opencell URL
+opencell_user:                  # Opencell User
+opencell_password:              # Opencell Password
+```
+
+* Tryton Celery variables
+```YAML
+celery_tryton_database:         # Database name to use in Celery process
+celery_user:                    # User to talk with RabbitMQ
+celery_password:                # Password to the user to talk with RabbitMQ
+celery_host:                    # Host of RabbitMQ server
+celery_port:                    # RabbitMQ port
+celery_vhost:                   # VHost RabbitMQ
+```
+
+* Flower variables
+```YAML
+flower_user:                    # User password to access to the Flower UI
+flower_password:                # Password to access to the Flower UI
 ```
 
 * FTP management variables
 ```YAML
-ftp_user:                        # FTP user. Use a specific user to connect the FTP
-ftp_password:                    # FTP password
-ftp_password_salt:               # FTP password SALT to excrypt it
+ftp_user:                       # FTP user. Use a specific user to connect the FTP
+ftp_password:                   # FTP password
+ftp_password_salt:              # FTP password SALT to excrypt it
 ```
 
 ## Ansible Community Roles

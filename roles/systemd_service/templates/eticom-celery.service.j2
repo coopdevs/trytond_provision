@@ -1,5 +1,5 @@
 [Unit]
-Description=Tryton Celery server
+Description=Tryton-EticomCelery server
 
 [Service]
 ExecStart={{ virtualenv_path }}/bin/celery worker --workdir={{ eticom_path }}/trytond -A trytond.modules.eticom.tasks --loglevel=info --time-limit=7400
@@ -8,5 +8,5 @@ EnvironmentFile=/etc/default/trytond
 User={{ tryton_user }}
 
 [Install]
-Alias=trytond-celery.service
+Alias=eticom-celery.service
 WantedBy=multi-user.target

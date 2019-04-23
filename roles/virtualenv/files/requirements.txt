@@ -178,4 +178,5 @@ yolk==0.4.3
 zeep==2.2.0
 celery==4.2.1
 celery-tryton==0.3
+flower==0.9.2
 pyopencell==0.1.8

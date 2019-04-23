@@ -2,7 +2,7 @@
 Description=Tryton Flower Celery server
 
 [Service]
-ExecStart={{ virtualenv_path }}/bin/celery flower --basic_auth=${FLOWER_USER}:${FLOWER_PASSWORD}
+ExecStart={{ virtualenv_path }}/bin/celery flower --basic_auth={{ flower_user }}:{{ flower_password }}
 EnvironmentFile=/etc/default/trytond
 
 User={{ tryton_user }}

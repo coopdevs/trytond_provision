@@ -5,6 +5,9 @@
     - role: virtualenv
       tags: virtualenv
 
+    - role: rabbitmq
+      tags: rabbitmq
+
     - role: systemd_service
       tags: service
 
