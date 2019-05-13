@@ -2,7 +2,7 @@
 Description=Tryton-OpenCell Celery server
 
 [Service]
-ExecStart={{ virtualenv_path }}/bin/celery worker --workdir={{ eticom_path }}/trytond -A trytond.modules.opencell_somconnexio.tasks.tasks --loglevel=info --time-limit=7400
+ExecStart={{ virtualenv_path }}/bin/celery worker --workdir={{ eticom_path }}/trytond -A trytond.modules.opencell_somconnexio.opencell_somconnexio.tryton_tasks.tasks --loglevel=info --time-limit=7400
 EnvironmentFile=/etc/default/trytond
 
 User={{ tryton_user }}
