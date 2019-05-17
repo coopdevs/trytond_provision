@@ -91,3 +91,14 @@
     src: sudoers.j2
     dest: "/etc/sudoers.d/90-tryton-admins"
     mode: 0440
+
+- name: Create script to restart all Tryton
+  become: yes
+  become_user: "{{ tryton_user }}"
+  copy:
+    src: restart_all.sh
+    dest: "/home/{{ tryton_user }}/restart_all"
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 0740
+
