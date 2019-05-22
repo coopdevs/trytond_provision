@@ -94,11 +94,9 @@
 
 - name: Create script to restart all Tryton
   become: yes
-  become_user: "{{ tryton_user }}"
   copy:
     src: restart_all.sh
-    dest: "/home/{{ tryton_user }}/restart_all"
+    dest: "/usr/local/bin/tryton_restart_all"
     owner: "{{ tryton_user }}"
     group: "{{ tryton_user }}"
     mode: 0740
-
