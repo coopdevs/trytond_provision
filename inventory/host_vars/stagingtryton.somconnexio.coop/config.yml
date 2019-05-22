@@ -28,3 +28,12 @@ tryton_user_keys:
 trytond_db_uri: 'postgresql://{{ db_user }}:{{ db_user_password }}@:{{ db_port }}/{{ db_name }}'
 uwsgi_config: 'server-eticom-dev.ini'
 nginx_config: 'uwsgi-dev.nginx'
+
+# Integrations
+
+## OTRS
+otrs_url: 'https://stagingotrs.somconnexio.coop/'
+otrs_rpc_url: 'https://stagingotrs.somconnexio.coop/rpc.pl'
+
+# OpenCell
+opencell_url: 'https://opencell-test.coopdevs.org/opencell'
