@@ -7,7 +7,6 @@
 
 - import_role:
     name: geerlingguy.postgresql
-  become: yes
   vars:
     postgresql_locales:
       - '{{ db_locales }}'
@@ -17,7 +16,6 @@
 - include_role:
     name: geerlingguy.postgresql
     tasks_from: users
-  become: yes
   vars:
     postgresql_users:
       - name: '{{ db_user }}'
@@ -31,7 +29,6 @@
 - include_role:
     name: geerlingguy.postgresql
     tasks_from: databases
-  become: yes
   vars:
     postgresql_databases:
       - name: '{{ db_name }}'
