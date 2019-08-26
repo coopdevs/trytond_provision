@@ -9,8 +9,8 @@
       tags: system
 
     - role: postgres
-      tags: database
       become: yes
+      tags: database
 
     - role: virtualenv
       tags: virtualenv
