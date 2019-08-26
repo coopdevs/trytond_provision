@@ -2,7 +2,7 @@
 - name: Install system required packages
   become: yes
   apt:
-    pkg: ['git=1:2.11.0-3+deb9u4', 'mercurial=4.0-1+deb9u1', 'quilt=0.63-8', 'libxml2=2.9.4+dfsg1-2.2+deb9u2', 'libxml2-dev=2.9.4+dfsg1-2.2+deb9u2', 'libxslt1-dev=1.1.29-2.1', 'build-essential=12.3', 'enchant=1.6.0-11+b1', 'libffi-dev=3.2.1-6', 'libssl-dev=1.1.0j-1~deb9u1', 'libldap2-dev=2.4.44+dfsg-5+deb9u2', 'libsasl2-dev=2.1.27~101-g0780600+dfsg-3', 'unoconv=0.7-1.1', 'libdwarf-dev=20161124-1+deb9u1', 'libelf-dev=0.168-1', 'libunwind-dev=1.1-4.1', 'libunwind-dev=1.1-4.1', 'rabbitmq-server=3.6.6-1', 'nginx=1.10.3-1+deb9u2']
+    pkg: ['git=1:2.11.0-3+deb9u4', 'mercurial=4.0-1+deb9u1', 'quilt=0.63-8', 'libxml2=2.9.4+dfsg1-2.2+deb9u2', 'libxml2-dev=2.9.4+dfsg1-2.2+deb9u2', 'libxslt1-dev=1.1.29-2.1', 'build-essential=12.3', 'enchant=1.6.0-11+b1', 'libffi-dev=3.2.1-6', 'libssl-dev=1.1.0k-1~deb9u1', 'libldap2-dev=2.4.44+dfsg-5+deb9u2', 'libsasl2-dev=2.1.27~101-g0780600+dfsg-3', 'unoconv=0.7-1.1', 'libdwarf-dev=20161124-1+deb9u1', 'libelf-dev=0.168-1', 'libunwind-dev=1.1-4.1', 'libunwind-dev=1.1-4.1', 'rabbitmq-server=3.6.6-1', 'nginx=1.10.3-1+deb9u2', 'openjdk-8-jre']
     state: present
     update_cache: yes
 
