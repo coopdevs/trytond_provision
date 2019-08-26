@@ -53,5 +53,8 @@
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart trytond-uwsgi
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload trytond-uwsgi
 # PostgreSQL
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl status postgresql
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl start postgresql
+%{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl stop postgresql
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl restart postgresql
 %{{ tryton_group }} ALL=(ALL) NOPASSWD: /bin/systemctl reload postgresql
