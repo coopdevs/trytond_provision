@@ -18,6 +18,15 @@
     group: "{{ tryton_user }}"
     mode: 02700
 
+- name: Create /var/run/trytond directory
+  become: yes
+  file:
+    path: /var/run/trytond/
+    state: directory
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+    mode: 02755
+
 # Create files
 - name: Copy trytond configuration file to /etc/trytond/
   become: yes
