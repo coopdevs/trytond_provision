@@ -167,7 +167,7 @@ vobject==0.9.4.1
 wcwidth==0.1.7
 WeasyPrint==0.36
 webencodings==0.5.1
-Werkzeug==0.11.15
+Werkzeug==0.15.3
 wikimarkup==1.0
 wrapt==1.10.8
 WTForms==2.1
