@@ -87,7 +87,7 @@ numpy==1.12.0
 olefile==0.44
 openpyxl==2.4.2
 packaging==16.8
-paramiko==2.1.2
+paramiko==2.1.6
 parse==1.6.6
 parse-type==0.3.4
 passwordmeter==0.1.8
