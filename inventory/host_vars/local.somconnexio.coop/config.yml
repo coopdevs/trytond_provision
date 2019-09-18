@@ -36,4 +36,4 @@ otrs_url: 'https://stagingotrs.somconnexio.coop:10443/'
 otrs_rpc_url: 'https://stagingotrs.somconnexio.coop:10443/rpc.pl'
 
 # OpenCell
-opencell_url: 'https://opencell-stage.coopdevs.org/opencell'
+opencell_url: 'https://opencell-test.coopdevs.org/opencell'
