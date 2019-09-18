@@ -2,13 +2,8 @@
 - name: Install system required packages
   become: yes
   apt:
-    pkg={{ item }}
-    state=present
-  with_items:
-    - python-dev=2.7.13-2
-    - python-pip=9.0.1-2
-    - python-virtualenv=15.1.0+ds-1
-    - python-setuptools=33.1.1-1
+    pkg: ['python-dev=2.7.13-2', 'python-pip=9.0.1-2', 'python-virtualenv=15.1.0+ds-1', 'python-setuptools=33.1.1-1']
+    state: present
 
 - name: Check if virtualenv is already created
   become: yes
