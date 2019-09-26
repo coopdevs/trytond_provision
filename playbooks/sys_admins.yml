@@ -16,4 +16,3 @@
       vars:
         sys_admin_group: "{{ system_administrators_group }}"
         sys_admins: "{{ system_administrators }}"
-
