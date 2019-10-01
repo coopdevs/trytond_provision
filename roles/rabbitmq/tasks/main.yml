@@ -1,25 +1,35 @@
 ---
+- name: Install RabbitMQ
+  become: yes
+  apt:
+    pkg: 'rabbitmq-server=3.6.6-1'
+    state: present
+    update_cache: yes
+
 - name: Enables the rabbitmq_management plugin
   become: yes
-  command: "rabbitmq-plugins enable rabbitmq_management"
-  ignore_errors: yes
-
-- name: Create RabbitMQ User
-  become: yes
-  command: "rabbitmqctl add_user {{ celery_user}} {{ celery_password }}"
+  rabbitmq_plugin:
+    names: rabbitmq_management
+    state: enabled
   ignore_errors: yes
 
 - name: Create RabbitMQ VHost
   become: yes
-  command: "rabbitmqctl add_vhost {{ celery_vhost }}"
+  rabbitmq_vhost:
+    name: "{{ celery_vhost }}"
+    state: present
   ignore_errors: yes
 
-- name: Set RabbitMQ User tags
+- name: Create RabbitMQ User
   become: yes
-  command: "rabbitmqctl set_user_tags {{ celery_user}} administrator"
-  ignore_errors: yes
-
-- name: Set RabbitMQ User permissions
-  become: yes
-  command: "rabbitmqctl set_permissions -p {{ celery_vhost }} {{ celery_user}} \".*\" \".*\" \".*\""
+  rabbitmq_user:
+    user: "{{ celery_user }}"
+    password: "{{ celery_password }}"
+    tags: administrator
+    state: present
+    permissions:
+      - vhost: "{{ celery_vhost }}"
+        configure_priv: .*
+        read_priv: .*
+        write_priv: .*
   ignore_errors: yes
