@@ -130,4 +130,3 @@ galatea_redirect_after_login: 'somconnexio.contractar-somconnexio'
 galatea_tryton_database: '{{ db_name }}'
 galatea_tryton_user: 28
 galatea_tryton_config: '{{ tryton_config }}'
-
