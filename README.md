@@ -2,25 +2,43 @@
 
 Ansible project to provision and deploy a server of [Tryton](http://www.tryton.org/) 3.8.
 
-This is intended to be used with this tryton repository: https://bitbucket.org/danypr92/root-eticom/src/default/
+This is intended to be used with this Tryton repository: https://bitbucket.org/danypr92/root-eticom/src/default/
 
 ## Requeriments
 
-This project has been thinked to run in Debian 9.0 (Stretch) mahcine.
+This project has been thought to be run against a Debian 9.0 (Stretch) machine.
 
-* Ansible 2.7
+* Ansible > 2.7
+
+> We are using the Ansible 2.8.5 version.
 
 You can find more information about Ansible [here](http://docs.ansible.com/)
 
-Install ansible requirements:
+We need to fix the Python and Ansible version used to run the playbooks. To cover this checks, we use [Pyenv](https://gitlab.com/coopdevs/ansible-development-environment).
+
+Please check the installation instructions in the [Pyenv](https://gitlab.com/coopdevs/ansible-development-environment) repository and after run the next commands to generate the `virtualenv` needed by this repository:
+
+```
+$ pyenv install 3.7.4
+$ pyenv virtualenv 3.7.4 trytond_provision
+$ pyenv local trytond_provision
+```
+
+Before run the next command, be sure that your are in the virtualenv. You can run `python --version` and check if the Python version is the ones expected.
+
+```
+$ pip install -r requirements.txt
+```
+
+After install Ansible, we need download the community (galaxy) roles used:
 
 ```commandline
-ansible-galaxy install -r requirements.yml
+$ ansible-galaxy install -r requirements.yml
 ```
 
 ## Setup development machine
 
-You can use `devenv` to create an LXC container that you can use to provision a tryton machine. See https://github.com/coopdevs/devenv
+You can use `devenv` to create an LXC container that you can use to provision a Tryton machine. See https://github.com/coopdevs/devenv
 
 If you want to use, once `devenv` is installed, you just change dir to the root directory of this projects, where a `.devenv` configuration files can be found, and run:
 
@@ -114,7 +132,7 @@ To use, run:
 ansible-playbook playbooks/provision.yml -u USER --limit HOSTGROUP
 ```
 
-### Manual: Clone and bootstrap the tryton repository
+### Manual: Clone and bootstrap the Tryton repository
 
 Assuming you use `administrator` user, use your mercurial to clone the repository in `~/eticom`:
 
@@ -180,8 +198,8 @@ You can install some development gooodies like ipython, ipdb or tryton_shell by 
 
 ### Post deploy - `playbooks/post_deploy.yml`
 
-You maybe don't want to run this playbook if you want to run tryton in your machine for development purposes.
-But if you want to setup a production or staging machine, you should use systemd to keep tryton up and ready.
+You maybe don't want to run this playbook if you want to run Tryton in your machine for development purposes.
+But if you want to setup a production or staging machine, you should use systemd to keep Tryton up and ready.
 
 This playbook does:
 
