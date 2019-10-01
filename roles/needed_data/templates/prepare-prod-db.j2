@@ -1,0 +1,11 @@
+#!/bin/bash
+
+(cd {{ tryton_path }}/modules/aeat_sii && hg up 293)
+(cd {{ tryton_path }}/modules/account_jasper_reports/ && hg up 315)
+(cd {{ tryton_path }}/modules/account_invoice_jreport/ && hg up 112)
+(cd {{ tryton_path }}/modules/jasper_reports_options/ && hg up 56)
+source /home/{{ tryton_user }}/update $1 jasper_reports_options
+source /home/{{ tryton_user }}/update $1 opencell_somconnexio
+source /home/{{ tryton_user }}/update $1 contract_changes_wizards_somconnexio
+source /home/{{ tryton_user }}/update $1 basetis
+source /home/{{ tryton_user }}/update $1 eticom

@@ -35,6 +35,15 @@
     owner: "{{ tryton_user }}"
     group: "{{ tryton_user }}"
 
+- name: Create script to prepare Production dump
+  become: yes
+  template:
+    src: prepare-prod-db.j2
+    dest: "/home/{{ tryton_user }}/prepare-prod-db"
+    mode: 0740
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
+
 - name: Remove NGINX default server
   become: yes
   file:
