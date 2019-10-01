@@ -1,33 +1,39 @@
 ---
 # Create directories
 - name: Copy price.js
-  become_user: "{{ tryton_user }}"
+  become: yes
   copy:
     src: prices.js
-    dest: "{{ galatea_path}}/static/prices.js"
+    dest: "{{ galatea_path }}/static/prices.js"
     owner: "{{ tryton_user }}"
     group: "{{ tryton_user }}"
 
 - name: Create script to run web
-  become_user: "{{ tryton_user }}"
+  become: yes
   template:
     src: up-web.j2
     dest: "/home/{{ tryton_user }}/up-web"
     mode: 0740
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
 
 - name: Create script to run Tryton
-  become_user: "{{ tryton_user }}"
+  become: yes
   template:
     src: up.j2
     dest: "/home/{{ tryton_user }}/up"
     mode: 0740
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
 
 - name: Create script to update Tryton
-  become_user: "{{ tryton_user }}"
+  become: yes
   template:
     src: update.j2
     dest: "/home/{{ tryton_user }}/update"
     mode: 0740
+    owner: "{{ tryton_user }}"
+    group: "{{ tryton_user }}"
 
 - name: Remove NGINX default server
   become: yes
