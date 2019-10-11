@@ -4,7 +4,7 @@ Ansible project to provision and deploy a server of [Tryton](http://www.tryton.o
 
 This is intended to be used with this Tryton repository: https://bitbucket.org/danypr92/root-eticom/src/default/
 
-## Requeriments
+## Requirements
 
 This project has been thought to be run against a Debian 9.0 (Stretch) machine.
 
