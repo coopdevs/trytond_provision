@@ -400,6 +400,16 @@ ansible-galaxy install -r requirements.yml
 * [PostgreSQL Role](https://galaxy.ansible.com/geerlingguy.postgresql)
 * [NodeJS Role](https://galaxy.ansible.com/geerlingguy.nodejs)
 
+## Production
+
+To allow to use the nominal users in production, we need add the users to the `ssh-users` group because is the only group allowed to access via SSH.
+
+By now, we can use:
+
+```
+$ sudo usermod -a -G ssh-users <user-name>
+```
+
 ## Devenv
 
 We use [`devenv`](https://github.com/coopdevs/devenv) tool to manage the development environment. Check the `.devenv` configuration file.
