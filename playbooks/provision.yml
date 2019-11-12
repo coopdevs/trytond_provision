@@ -40,3 +40,10 @@
 
     - role: configuration_files
       tags: config
+
+    - role: coopdevs.certbot_nginx
+      vars:
+        domain_name: "{{ domains | default([inventory_hostname]) | join(',') }}"
+        letsencrypt_email: "{{ certificate_authority_email }}"
+        certbot_nginx_cert_name: "{{ certbot_cert_name | default(inventory_hostname) }}"
+      when: not development_environment

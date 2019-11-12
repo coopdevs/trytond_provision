@@ -37,3 +37,7 @@ otrs_rpc_url: 'https://stagingotrs.somconnexio.coop:10443/rpc.pl'
 
 # OpenCell
 opencell_url: 'https://stagingopencell.coopdevs.org/opencell'
+
+# Let's Encrypt conf
+certificate_authority_email: "info@coopdevs.org"
+development_environment: false

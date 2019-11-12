@@ -13,3 +13,6 @@
 
 - src: weareinteractive.vsftpd
   version: 1.5.1
+
+- src: coopdevs.certbot_nginx
+  version: 0.0.4
