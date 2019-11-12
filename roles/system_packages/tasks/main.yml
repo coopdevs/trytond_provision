@@ -20,7 +20,6 @@
       'libelf-dev=0.168-1',
       'libunwind-dev=1.1-4.1',
       'libunwind-dev=1.1-4.1',
-      'rabbitmq-server=3.6.6-1',
       'nginx=1.10.3-1+deb9u2',
       'openjdk-8-jre'
       ]
