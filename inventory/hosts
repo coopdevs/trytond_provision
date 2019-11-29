@@ -1,6 +1,9 @@
 [production]
 eticom.nan-tic.com
 
+[staging]
+stagingtryton.coopdevs.org
+
 [stage]
 stagingtryton.somconnexio.coop
 
@@ -10,4 +13,5 @@ local.somconnexio.coop
 [tryton:children]
 dev
 stage
+staging
 production
