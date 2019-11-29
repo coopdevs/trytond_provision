@@ -41,12 +41,14 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
 
-- name: Create NGINX configuration link
+- name: Create Forms NGINX configuration link
   become: yes
-  file:
-    src: '{{ galatea_path }}/{{ nginx_config }}'
+  template:
+    src: eticom.nginx.j2
     dest: /etc/nginx/sites-available/eticom
-    state: link
+    mode: 0755
+    owner: root
+    group: root
 
 - name: Enable the NGINX configuration
   become: yes

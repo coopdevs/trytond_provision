@@ -63,10 +63,6 @@
     - role: systemd_service
       tags: service
 
-    - role: needed_data
-      become: yes
-      tags: web
-
     - role: coopdevs.certbot_nginx
       become: yes
       vars:
@@ -76,3 +72,8 @@
         certbot_version: "0.28.0-1~deb9u2"
         certbot_nginx_version: "0.28.0-1~deb9u1"
       when: not development_environment
+      tags: cert
+
+    - role: needed_data
+      become: yes
+      tags: web
