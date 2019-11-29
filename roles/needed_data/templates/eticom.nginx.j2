@@ -1,0 +1,66 @@
+upstream flask {
+	server unix:///tmp/flask-uwsgi.sock;
+}
+
+map $http_accept_language $lang {
+	default es;
+	~ca ca;
+	~es es;
+	~en en;
+}
+
+server {
+	listen 443 ssl;
+	listen [::]:443 ipv6only=on ssl;
+
+	server_name {{ inventory_hostname }} {{ ansible_default_ipv4.address }};
+	charset utf-8;
+	rewrite (^/$) /$lang/;
+
+	keepalive_timeout   70;
+	ssl_certificate     /etc/letsencrypt/live/{{ inventory_hostname }}/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/{{ inventory_hostname }}/privkey.pem;
+	ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers         HIGH:!aNULL:!MD5;
+
+	location / {
+		proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $http_host;
+		proxy_redirect off;
+		proxy_connect_timeout 300;
+		proxy_send_timeout 300;
+		proxy_read_timeout 300;
+		send_timeout 300;
+		include uwsgi_params;
+		uwsgi_pass flask;
+	}
+
+        location /defaultsite {
+            return 301 /$lang/;
+        }
+
+	location /robots.txt {
+		alias {{ tryton_path }}/wwweticom/robots.txt;
+		access_log off;
+		log_not_found off;
+	}
+
+	location /static {
+		alias {{ tryton_path }}/wwweticom/static;
+		autoindex off;
+	}
+
+	location /media {
+		alias {{ tryton_path }}/wwweticom/media;
+		autoindex off;
+	}
+
+	location /static/somconnexio {
+		alias {{ tryton_path }}ments/eticom/galatea/somconnexio;
+		autoindex off;
+	}
+
+	access_log {{ tryton_path }}/wwweticom/wwweticom-access.log;
+	error_log  {{ tryton_path }}/wwweticom/wwweticom-error.log;
+}
+
