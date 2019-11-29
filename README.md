@@ -404,7 +404,7 @@ ansible-galaxy install -r requirements.yml
 
 To allow to use the nominal users in production, we need add the users to the `ssh-users` group because is the only group allowed to access via SSH.
 
-By now, we can use:
+For now, we can use:
 
 ```
 $ sudo usermod -a -G ssh-users <user-name>
