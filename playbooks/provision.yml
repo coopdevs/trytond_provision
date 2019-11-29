@@ -57,6 +57,16 @@
     - role: configuration_files
       tags: config
 
+    - role: rabbitmq
+      tags: rabbitmq
+
+    - role: systemd_service
+      tags: service
+
+    - role: needed_data
+      become: yes
+      tags: web
+
     - role: coopdevs.certbot_nginx
       vars:
         domain_name: "{{ domains | default([inventory_hostname]) | join(',') }}"
