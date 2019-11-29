@@ -16,7 +16,6 @@ cached-property==1.3.0
 cairocffi==0.8.0
 CairoSVG==1.0.22
 caldav==0.5.0
--e git+https://github.com/midlgxdev/cdecimal-2.3.git@4d8c32d6f89062507d05ebbe2fba29f4dddaf31c#egg=cdecimal
 certifi==2018.4.16
 cffi==1.9.1
 chardet==3.0.4
