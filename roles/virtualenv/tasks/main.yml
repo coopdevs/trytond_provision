@@ -30,6 +30,23 @@
   command: "virtualenv {{ venv_path }} -p /usr/bin/python2.7"
   when: env.stat.isdir is undefined
 
+- name: Create src virtualenv folder for the CDecimal lib
+  become: yes
+  file:
+    path: "{{ venv_path }}/src/"
+    state: directory
+    owner: '{{ tryton_user }}'
+    group: '{{ tryton_user }}'
+    mode: 0755
+
+- name: Download CDecimal library
+  become: yes
+  get_url:
+    url: http://www.bytereef.org/software/mpdecimal/releases/cdecimal-2.3.tar.gz
+    dest: "/opt/cdecimal.tar.gz"
+    owner: '{{ tryton_user }}'
+    group: '{{ tryton_user }}'
+
 - name: Copy requirements
   become: yes
   copy:
@@ -40,8 +57,16 @@
 
 - name: Install requirements
   become: yes
+  become_user: '{{ tryton_user }}'
   pip:
-    requirements: '/home/{{ tryton_user }}/requirements.txt'
+    name: 'file:///opt/cdecimal.tar.gz'
+    virtualenv: '{{ venv_path }}'
+
+- name: Install CDecimal
+  become: yes
+  become_user: '{{ tryton_user }}'
+  pip:
+    name: 'file:///opt/cdecimal.tar.gz'
     virtualenv: '{{ venv_path }}'
 
 - name: Copy development requirements
