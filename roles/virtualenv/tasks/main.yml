@@ -6,7 +6,8 @@
       'python-dev=2.7.13-2',
       'python-pip=9.0.1-2+deb9u1',
       'python-virtualenv=15.1.0+ds-1',
-      'python-setuptools=33.1.1-1'
+      'python-setuptools=33.1.1-1',
+      'build-essential=12.3'
       ]
     state: present
 
@@ -59,7 +60,7 @@
   become: yes
   become_user: '{{ tryton_user }}'
   pip:
-    name: 'file:///opt/cdecimal.tar.gz'
+    requirements: '/home/{{ tryton_user }}/requirements.txt'
     virtualenv: '{{ venv_path }}'
 
 - name: Install CDecimal
