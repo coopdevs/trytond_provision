@@ -1,0 +1,5 @@
+---
+- name: Deploying Tryton Modules
+  hosts: tryton
+  roles:
+    - role: deploy

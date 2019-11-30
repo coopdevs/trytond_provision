@@ -1,0 +1,16 @@
+---
+- name: Check if Tryton project is deployed
+  stat: "path={{ tryton_path }}/trytond/bin/trytond"
+  register: trytond_exists
+
+- import_tasks: trytond.yml
+  when: trytond_exists.stat.executable == False
+
+- name: "Deploy module {{ item.name }} version {{ item.version }}"
+  git:
+    repo: "{{ item.url }}"
+    dest: "{{ modules_path }}/{{ item.name }}"
+    version: "{{ item.version }}"
+    force: yes
+    accept_hostkey: yes
+  loop: "{{ tryton_modules }}"

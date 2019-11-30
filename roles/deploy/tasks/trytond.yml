@@ -1,0 +1,14 @@
+---
+- name: Clone the private Tryton repository
+  git:
+    repo: "{{ root_tryton_url }}"
+    dest: "/home/administrator/root-trytond"
+    separate_git_dir: /tmp/tryton-root.git
+    force: yes
+    accept_hostkey: yes
+
+- name: Extract trytond-root.tgz into /home/administrator/
+  unarchive:
+    src: "/home/administrator/root-trytond/{{ root_tryton_tarball }}"
+    dest: /home/administrator
+    remote_src: yes
