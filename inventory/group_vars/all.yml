@@ -15,6 +15,7 @@ venv_path: "/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}"
 
 # Tryton vars
 tryton_path: "/home/{{ tryton_user }}/eticom"
+modules_path: "{{ tryton_path }}/modules"
 tryton_defaults: "/etc/default/trytond"
 
 # You can clone more that one Tryton repository using Mercurial
@@ -130,3 +131,7 @@ galatea_redirect_after_login: 'somconnexio.contractar-somconnexio'
 galatea_tryton_database: '{{ db_name }}'
 galatea_tryton_user: 28
 galatea_tryton_config: '{{ tryton_config }}'
+
+# Root Trytond vars
+root_tryton_tarball: eticom.tar.gz
+root_tryton_url: git@gitlab.com:coopdevs/somconnexio-tryton-root-project.git
