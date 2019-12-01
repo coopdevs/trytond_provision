@@ -20,3 +20,16 @@
     force: yes
     accept_hostkey: yes
   loop: "{{ tryton_modules }}"
+
+- name: "Remove old modules"
+  file:
+    path: "{{ tryton_path }}/wwweticom"
+    state: absent
+
+- name: "Deploy WebForms version {{ tryton_webforms_version }}"
+  git:
+    repo: "{{ tryton_webforms_url }}"
+    dest: "{{ tryton_path }}/wwweticom"
+    version: "{{ tryton_webforms_version }}"
+    force: yes
+    accept_hostkey: yes
