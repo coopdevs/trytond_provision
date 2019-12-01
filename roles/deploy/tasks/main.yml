@@ -6,6 +6,12 @@
 - import_tasks: trytond.yml
   when: trytond_exists.stat.executable == False
 
+- name: "Remove old modules"
+  file:
+    path: "{{ modules_path }}/{{ item.name }}"
+    state: absent
+  loop: "{{ tryton_modules }}"
+
 - name: "Deploy module {{ item.name }} version {{ item.version }}"
   git:
     repo: "{{ item.url }}"
