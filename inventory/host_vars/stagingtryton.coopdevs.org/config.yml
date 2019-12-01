@@ -25,7 +25,7 @@ tryton_user_keys:
   - ssh_key: '~/.ssh/id_rsa.pub'
     state: present
 
-trytond_db_uri: 'postgresql://{{ db_user }}:{{ db_user_password }}@:{{ db_port }}/{{ db_name }}'
+trytond_db_uri: 'postgresql://{{ db_user }}:{{ db_user_password }}@localhost:{{ db_port }}/{{ db_name }}'
 uwsgi_config: 'server-eticom-dev.ini'
 nginx_config: 'uwsgi-dev.nginx'
 
@@ -78,13 +78,7 @@ db_hba_entries:
   - { type: local, database: all, user: all, auth_method: peer }
   - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
   - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
-db_port: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          31653130643838623237393564303538333261336136333762353364313030393830363566366639
-          3732666265626663613539613135336432303663383530660a653635393435393230626266393830
-          32343231386135353663636264316336396537636339643363616134323264643464653132323239
-          3831366264396266610a396333353463613934346138396631643866366562306235663364323165
-          6266
+db_port: 5432
 db_user_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           66363134633466333461313134313933306561343865653762386663666363376337633431393433
