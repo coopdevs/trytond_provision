@@ -5,6 +5,7 @@
     dest: "/home/administrator/root-trytond"
     separate_git_dir: /tmp/tryton-root.git
     force: yes
+    version: latest
     accept_hostkey: yes
 
 - name: Extract trytond-root.tgz into /home/administrator/
