@@ -19,6 +19,10 @@
           - name: '{{ db_user }}'
             password: '{{ db_user_password }}'
             role_attr_flags: CREATEDB
+          - name: '{{ otrs_db_user }}'
+            password: '{{ otrs_db_password }}'
+            priv: party_otrs_view:SELECT
+            db: '{{ db_name }}'
           - name: '{{ tryton_user }}'
             role_attr_flags: SUPERUSER
         postgresql_databases:
