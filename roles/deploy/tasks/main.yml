@@ -4,7 +4,7 @@
   register: trytond_exists
 
 - import_tasks: trytond.yml
-  when: trytond_exists.stat.executable == False
+  when: not trytond_exists.stat.executable
 
 - name: "Remove old modules"
   file:
