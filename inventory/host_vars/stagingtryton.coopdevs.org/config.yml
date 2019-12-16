@@ -32,7 +32,7 @@ nginx_config: 'uwsgi-dev.nginx'
 # Integrations
 
 ## OTRS
-otrs_rpc_url: 'https://stagingotrs.somconnexio.coop:10443/rpc.pl'
+otrs_rpc_url: '{{ otrs_url }}/rpc.pl'
 otrs_rpc_user: 'somconnexio_rpc'
 otrs_rpc_passw: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -42,7 +42,7 @@ otrs_rpc_passw: !vault |
           3038363961333039350a336566643737633634386233323035373135363331633566623434643239
           34346663343137653932313734383036383830333764646462653436373935643861
 
-otrs_url: 'https://stagingotrs.somconnexio.coop:10443/'
+otrs_url: 'https://somconnexio.managed-otrs.com/'
 otrs_user: 'tryton'
 otrs_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
