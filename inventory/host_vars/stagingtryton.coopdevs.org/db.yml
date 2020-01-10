@@ -1,0 +1,16 @@
+---
+db_hba_entries:
+  - { type: local, database: all, user: postgres, auth_method: peer }
+  - { type: local, database: all, user: all, auth_method: peer }
+  - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
+  - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
+  - { type: sslhost, database: "{{  db_name }}", user: "{{ otrs_db_user }}", address: '{{ otrs_ip }}/32', auth_method: md5 }
+  - { type: sslhost, database: "{{  db_name }}", user: "{{ otrs_db_user }}", address: '{{ otrs_new_ip }}/32', auth_method: md5 }
+db_port: 5432
+db_user_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66363134633466333461313134313933306561343865653762386663666363376337633431393433
+          3061656635313935656135663066653733653838633936630a646437613435396438303533356262
+          39303833316666643462333337326463643335383130363362383064383539396432383038663064
+          3337663164343332660a313361323838333863306165306434313732356465656233366461393032
+          3131
