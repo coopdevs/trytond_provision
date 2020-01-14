@@ -7,7 +7,13 @@ tryton_dev: True
 
 # Users with access to Tryton user via SSH. The name ins only for document who the key is.
 tryton_user_keys:
-  - ssh_key: '~/.ssh/id_rsa.pub'
+  - ssh_key: '{{ inventory_dir }}/../file/keys/daniel.pub'
+    state: present
+  - ssh_key: '{{ inventory_dir }}/../file/keys/enrico.pub'
+    state: present
+  - ssh_key: '{{ inventory_dir }}/../file/keys/pau.pub'
+    state: present
+  - ssh_key: '{{ inventory_dir }}/../file/keys/ferran.pub'
     state: present
 
 trytond_db_uri: 'postgresql://{{ db_user }}:{{ db_user_password }}@localhost:{{ db_port }}/{{ db_name }}'
