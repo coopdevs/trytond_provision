@@ -101,12 +101,12 @@ ansible-playbook playbooks/sys_admins.yml --limit dev
 Ansible will try to connect to the host using the system user. If your user as a system administrator is different than your local system user please run this playbook with the correct user using the -u flag.
 
 ```commandline
-ansible-playbook playbooks/sys_admins.yml --limit dev -u <username>
+$ ansible-playbook playbooks/sys_admins.yml --limit dev -u <username>
 ```
 
 Once this is done, you can check if it works with:
 ```commandline
-ssh admin@local.tryton.coop
+$ ssh admin@local.tryton.coop
 ```
 
 Change the host and user for the ones of your choice if you don't use these default ones.
@@ -128,8 +128,8 @@ This playbook do:
 * Create Tryton configuration files
 
 To use, run:
-```
-ansible-playbook playbooks/provision.yml -u USER --limit HOSTGROUP
+```commandline
+$ ansible-playbook playbooks/provision.yml -u USER -l HOSTGROUP --ask-vault-pass
 ```
 
 ### Manual: Clone and bootstrap the Tryton repository
@@ -137,7 +137,7 @@ ansible-playbook playbooks/provision.yml -u USER --limit HOSTGROUP
 Assuming you use `administrator` user, use your mercurial to clone the repository in `~/eticom`:
 
 ```commandline
-ssh administrator@local.somconnexio.coop -A
+$ ssh administrator@local.somconnexio.coop -A
 ```
 > The `-A` argument is to keep with you your ssh-agent in the ssh connection.
 
@@ -215,8 +215,8 @@ This playbook does:
 * Copy the data needed to run the web forms
 
 To use, run:
-```
-ansible-playbook playbooks/post_deploy.yml -u USER --limit HOSTGROUP
+```commandline
+$ ansible-playbook playbooks/post_deploy.yml -u USER -l HOSTGROUP --ask-vault-pass
 ```
 
 ### Manual: Create the database
