@@ -37,6 +37,10 @@ db_options:
     value: "{{ db_locales }}"
   - option: lc_time
     value: "{{ db_locales }}"
+  - option: log_connections
+    value: on
+  - option: log_disconnections
+    value: on
 
 # Tryton Configuration files
 configuration_files:
