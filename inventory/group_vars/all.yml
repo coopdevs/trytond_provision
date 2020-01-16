@@ -41,6 +41,8 @@ db_options:
     value: on
   - option: log_disconnections
     value: on
+  - option: listen_addresses
+    value: '*'
 
 # Tryton Configuration files
 configuration_files:
