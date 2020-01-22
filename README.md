@@ -352,9 +352,9 @@ otrs_salt:
 otrs_rpc_url:
 otrs_rpc_user:
 otrs_rpc_passw:
-otrs_url:
-otrs_user:
-otrs_passw:
+otrs_url:       # Base URL of the OTRS server to connect to
+otrs_user:      # User used to authenticate when using requests to `otrs_url`
+otrs_passw:     # Password used to authenticate when using requests to `otrs_url`
 ```
 
 * Tryton Environment Variables to OpenCell integration

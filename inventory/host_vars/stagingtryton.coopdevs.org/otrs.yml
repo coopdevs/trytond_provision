@@ -9,7 +9,7 @@ otrs_rpc_passw: !vault |
           3038363961333039350a336566643737633634386233323035373135363331633566623434643239
           34346663343137653932313734383036383830333764646462653436373935643861
 
-otrs_url: 'https://somconnexio.managed-otrs.com/'
+otrs_url: 'https://somconnexio-test.managed-otrs.com/'
 otrs_user: 'tryton'
 otrs_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
