@@ -67,6 +67,7 @@
 
     - role: rabbitmq
       tags: rabbitmq
+      when: not development_environment
 
     - role: systemd_service
       tags: service

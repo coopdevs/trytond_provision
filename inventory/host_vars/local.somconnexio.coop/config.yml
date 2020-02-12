@@ -1,6 +1,7 @@
 ---
 # Install some Python development tools
 dev_mode: true
+development_environment: true
 
 # Set Tryton in development mode
 tryton_dev: True
@@ -15,6 +16,9 @@ system_administrators:
     state: present
   - name: ferran
     ssh_key: '{{ inventory_dir }}/../file/keys/ferran.pub'
+    state: present
+  - name: pau
+    ssh_key: '{{ inventory_dir }}/../file/keys/pau.pub'
     state: present
 
 # Users with access to Tryton user via SSH. The name ins only for document who the key is.
