@@ -23,3 +23,6 @@ nginx_config: 'uwsgi-dev.nginx'
 # Let's Encrypt conf
 certificate_authority_email: "info@coopdevs.org"
 development_environment: false
+
+# Bugsnag
+bugsnag_release_stage: staging
