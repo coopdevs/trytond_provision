@@ -5,7 +5,7 @@ db_hba_entries:
   - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
   - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
   - { type: hostssl, database: "{{  db_name }}", user: "{{ otrs_db_user }}", address: '{{ otrs_ip }}/32', auth_method: md5 }
-db_port: 5432
+db_port: 11393
 db_user_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           66363134633466333461313134313933306561343865653762386663666363376337633431393433

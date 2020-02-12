@@ -19,17 +19,21 @@
           - name: '{{ db_user }}'
             password: '{{ db_user_password }}'
             role_attr_flags: CREATEDB
+            port: '{{ db_port }}'
           - name: '{{ otrs_db_user }}'
             password: '{{ otrs_db_password }}'
             priv: party_otrs_view:SELECT/otrs_contract:SELECT
             db: '{{ db_name }}'
+            port: '{{ db_port }}'
           - name: '{{ tryton_user }}'
             role_attr_flags: SUPERUSER
+            port: '{{ db_port }}'
         postgresql_databases:
           - name: '{{ db_name }}'
             lc_collate: '{{ db_locales }}'
             lc_ctype: '{{ db_locales }}'
             owner: '{{ db_user }}'
+            port: '{{ db_port }}'
       tags: database
 
     - role: virtualenv

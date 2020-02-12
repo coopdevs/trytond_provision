@@ -43,6 +43,8 @@ db_options:
     value: on
   - option: listen_addresses
     value: '*'
+  - option: port
+    value: "{{ db_port }}"
 
 # Tryton Configuration files
 configuration_files:
