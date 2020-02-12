@@ -34,3 +34,6 @@ otrs_rpc_url: 'https://stagingotrs.somconnexio.coop:10443/rpc.pl'
 
 # OpenCell
 opencell_url: 'https://opencell-test.coopdevs.org/opencell'
+
+# Bugsnag
+bugsnag_release_stage: development
