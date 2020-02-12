@@ -13,9 +13,6 @@ system_administrators:
   - name: enrico
     ssh_key: '{{ inventory_dir }}/../file/keys/enrico.pub'
     state: present
-  - name: antonio
-    ssh_key: '{{ inventory_dir }}/../file/keys/antonio.pub'
-    state: present
   - name: ferran
     ssh_key: '{{ inventory_dir }}/../file/keys/ferran.pub'
     state: present
