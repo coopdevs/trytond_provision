@@ -1,8 +1,8 @@
 # Tryton Provision
 
-Ansible project to provision and deploy a server of [Tryton](http://www.tryton.org/) 3.8.
+Ansible project to provision and deploy a [Tryton](http://www.tryton.org/) 3.8 server.
 
-This is intended to be used with this Tryton repository: https://bitbucket.org/danypr92/root-eticom/src/default/
+This is intended to be used with Som Connexió's own Tryton repository: https://gitlab.com/coopdevs/somconnexio-tryton-root-project.
 
 ## Requirements
 
@@ -14,9 +14,9 @@ This project has been thought to be run against a Debian 9.0 (Stretch) machine.
 
 You can find more information about Ansible [here](http://docs.ansible.com/)
 
-We need to fix the Python and Ansible version used to run the playbooks. To cover this checks, we use [Pyenv](https://gitlab.com/coopdevs/ansible-development-environment).
+We use [Pyenv](https://gitlab.com/coopdevs/ansible-development-environment) to consistently run specific Python and Ansible versions across all machines.
 
-Please check the installation instructions in the [Pyenv](https://gitlab.com/coopdevs/ansible-development-environment) repository and after run the next commands to generate the `virtualenv` needed by this repository:
+Please check the installation instructions at [Pyenv's](https://gitlab.com/coopdevs/ansible-development-environment) repository and then run the next commands to generate the `virtualenv`:
 
 ```
 $ pyenv install 3.7.4
@@ -24,50 +24,51 @@ $ pyenv virtualenv 3.7.4 trytond_provision
 $ pyenv local trytond_provision
 ```
 
-Before run the next command, be sure that your are in the virtualenv. You can run `python --version` and check if the Python version is the ones expected.
+Before running the next command, make sure that you are in the virtualenv. You can run `python --version` and check if the Python version is `trytond_provision`.
 
 ```
 $ pip install -r requirements.txt
 ```
 
-After install Ansible, we need download the community (galaxy) roles used:
+After installing Ansible, we need to download and install the project dependencies:
 
 ```commandline
 $ ansible-galaxy install -r requirements.yml
 ```
 
-## Setup development machine
+## Development
 
-You can use `devenv` to create an LXC container that you can use to provision a Tryton machine. See https://github.com/coopdevs/devenv
+You can use `devenv` to create an LXC container that you can use to provision a Tryton server. See https://github.com/coopdevs/devenv.
 
-If you want to use, once `devenv` is installed, you just change dir to the root directory of this projects, where a `.devenv` configuration files can be found, and run:
+Once `devenv` is installed, change dir to the directory where you cloned the repository and run:
 
 ```commandline
 devenv
 ```
 
-That should create an LXC container based in Debian Stretch.
+This will create an LXC container based on Debian Stretch. Now, read [#ansible-playbooks] to provision your newly created container.
 
-### Fix mount directory:
+### Fix mount directory
+
 Fix problem with #14
 
-Before continue with the documentation, please fix the mount directory in the LXC Configuration file (`/var/lxc/somconnexio/config`). Run:
+Before continue with the documentation, please fix the mount directory in the LXC Configuration file (`/var/lxc/somconnexio/config`). Open the file with Vim:
 
 ```commandline
 sudo vim /var/lxc/somconnexio/config
 ```
 
-In vim run the next command `:%s/opt/home\/administrator/g` and save.
+From vim, run the command `:%s/opt/home\/administrator/g` and save.
 
 Restart the container and continue with the documentation.
 
-## Playbooks
+## Ansible playbooks
 
 ### Create System Administrators users - `playbooks/sys_admins.yml`
 
-This playbook use the [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) of Coopdevs to manage the system administrators users.
+This playbook uses Copodevs' [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) to manage the system administrators users.
 
-By default an user is created in the target machine, with your current user pubkey assigned.
+By default a user is created in the target machine, with the public key of your current user assigned.
 
 You can create new `host_vars` folder with your domain as name, or you can use the existing one (local.tryton.coop).
 Modify these vars, which you can find in file `config.yml`:
@@ -111,10 +112,10 @@ $ ssh admin@local.tryton.coop
 
 Change the host and user for the ones of your choice if you don't use these default ones.
 
-Now, before following provision instructions, read the [Configuration variables]() section.
+Now, before following the provision instructions, read the [Configuration variables]() section.
 
 ### Provision - `playbooks/provision.yml`
-This playbook do:
+This playbook does:
 
 * Create Tryton user and add SSH keys
 * Create Tryton configuration files
@@ -132,294 +133,39 @@ To use, run:
 $ ansible-playbook playbooks/provision.yml -u USER -l HOSTGROUP --ask-vault-pass
 ```
 
-### Manual: Clone and bootstrap the Tryton repository
+### Installng and configuring a FTP server - `playbooks/ftp.yml`
 
-Assuming you use `administrator` user, use your mercurial to clone the repository in `~/eticom`:
-
-```commandline
-$ ssh administrator@local.somconnexio.coop -A
-```
-> The `-A` argument is to keep with you your ssh-agent in the ssh connection.
-
-Once inside container, run:
-
-```commandline
-hg clone ssh://hg@bitbucket.org/danypr92/root-eticom eticom
-```
-
-When the repository was clonned, active the virtualenv and execute the `boostrap` script
-
-```commandline
-source ~/.virtualenvs/eticom/bin/activate
-cd ~/eticom
-./bootstrap.sh
-```
-
-During bootstrap, you probably can get some errors due to having incorrect version for some repositories.
-Go to the repository folder indicated on the error (for instance, `config` or `tasks`) and run:
-
-```commandline
-hg up 3.8
-```
-
-If you are using some virtual machine or containers technology, such as docker, be sure that you clone this
-into a directory shared between the container machine and the host machine, so you can easily modify the code.
-
-Also you can get some error and the process can be freeze, but you can click `enter` and the process continue. When the process ends, you need to check that the `opencell_somconnexio` and the `contract_changes_wizards_somconnexio` are cloned, if does not, please clone the repos manually:
-
-```commandline
-git clone -b master -q git@gitlab.com:coopdevs/opencell_somconnexio_tryton.git /home/administrator/eticom/modules/opencell_somconnexio
-git clone -b master -q git@gitlab.com:coopdevs/contract_changes_wizards_somconnexio.git /home/administrator/eticom/modules/contract_changes_wizards_somconnexio
-```
-
-### Manual: Clone and bootstrap the galatea repository
-
-Assuming you use `administrator` user, use your mercurial to clone the repository in `~/eticom/wwweticom`:
-
-```commandline
-cd ~/eticom
-hg clone ssh://hg@bitbucket.org/nantic/flask-eticom wwweticom
-cd ~/eticom/wwweticom
-./bootstrap.sh
-```
-
-When the repository was clonned, active the virtualenv and execute the `boostrap` script
-
-```commandline
-source ~/.virtualenvs/eticom/bin/activate
-cd ~/eticom/wwweticom
-./bootstrap.sh
-```
+This playbook uses the [`vsftpd` role](https://github.com/weareinteractive/vsftpd) to manage the FTP server.
 
 ### Further development requirements
 
-You can install some development gooodies like ipython, ipdb or tryton_shell by setting var `dev_mode` to `true` in host's vars.
+You can install some development goodies like ipython, ipdb or tryton_shell by setting var `dev_mode` to `true` in host's vars.
 (./inventory/hosts_vars/loca.tryton.coop/config.yml).
-
-### Post deploy - `playbooks/post_deploy.yml`
-
-You maybe don't want to run this playbook if you want to run Tryton in your machine for development purposes.
-But if you want to setup a production or staging machine, you should use systemd to keep Tryton up and ready.
-
-This playbook does:
-
-* Fix the Python packages version
-* Create Tryton log configuration files
-* [Configure RabbitMQ to work with Celery](https://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html?highlight=rabbit#setting-up-rabbitmq):
-  - Create user
-  - Create vhost
-  - Enable [RabbitMQ Management Plugin](https://www.rabbitmq.com/management.html)
-* Create a `systemd` unit to run Tryton instances
-* Enable the Tryton services
-* Copy the scripts to run in development mode
-* Copy the data needed to run the web forms
-
-To use, run:
-```commandline
-$ ansible-playbook playbooks/post_deploy.yml -u USER -l HOSTGROUP --ask-vault-pass
-```
 
 ### Manual: Create the database
 
-After provision and deploy our application and after run the `post_deploy` tasks, we need create a usable database.
-We use a dump to recreate a db un local environment. You need get some db backup and fill the `eticom` datebase with it:
+After provisioning and deploying the application, we need to create a development database.
+
+We use a dump to recreate a DB for development purposes. You need to get a backup and fill the `eticom` database with it:
 
 ```commandline
 psql -h 127.0.0.1 -U eticom -W eticom < <YOUR-DUMP>
 ```
 
-After run this migration, you can use the scripts at home to execute the forms, Tryton server or update the list of modules:
+With this done, you can manage the app with the following scripts.
 
 ```commandline
-./up                        - Start the Tryton server to debug
-./up-web                    - Start the web forms to debug
-./update <module_name>      - Update the Tryton module
+./up                        - Start the Tryton server
+./up-web                    - Start the web forms
+./update <module_name>      - Update Tryton modules
 ```
-
-### Install and configure a FTP server - `playbooks/ftp.yml`
-
-This playbook use the [`vsftpd` role](https://github.com/weareinteractive/vsftpd) to manage the FTP server.
-
-## Configuration variables
-
-This examples are from `./inventory/host_vars/local.somconnexio.coop/config.yml` and `secrets.yml` and from the group vars `./inventory/group_vars/all.yml`. You can create new `host_vars` folder with your domain as name and modify this vars.
-We recommend encrypting the variables with sensitive information with [Ansible Vualt](https://docs.ansible.com/ansible/2.4/vault.html) and use `--ask-vault-pass` in the command line.
-
-* Sysadmins
-```YAML
-system_administrators_group:      # System administrators group
-system_administrators:            # List of system administrators added to the group
-  - name:                         # User name
-    ssh_key:                      # User SSH public key file path
-    state:                        # User state (present/absent)
-```
-
-* Tryton users
-```YAML
-tryton_user:                      # User to run Tryton application
-tryton_group:                     # Group to run Tryton systemd services
-tryton_user_keys:                 # List of users with access to Tryton user via SSH
-  - name:                         # User name
-    ssh_key:                      # User SSH public key file path
-    state:                        # User state (present/absent)
-```
-
-* VirtualEnv vars:
-```YAML
-venv_name:                        # Virtualenv name
-# Default virtualenv path is created with tryton_user and venv_name var
-# You can override set another directory in the venv_path. Feel free!
-venv_path: "/home/{{ tryton_user }}/.virtualenvs/{{ venv_name }}"
-```
-
-* Tryton vars:
-```YAML
-tryton_path:                      # Tryton repository path
-# You can clone more that one Tryton repository using Mercurial
-tryton_repositories:              # List of repositories to clone the Tryton project and addons
-  - url:                          # Repository URL
-    path:                         # Repository destination. You can use the tryton_path var
-    revision:                     # Repository revision to clone
-```
-
-* Postgresql vars
-```YAML
-# Postgresql vars
-db_name:                          # Database name
-db_user:                          # Database user name
-db_user_password:                 # Database user password
-db_port:                          # Database server port
-db_locales:                       # Database server locale
-db_options:                       # postgresql_global_config_options variable of geerlingguy.postgresql role
-db_hba_entries:                   # postgresql_hba_entries variable of geerlingguy.postgresql role
-```
-
-* Tryton Configuration files
-```YAML
-configuration_files:              # List of Trytond configuration files
-  - file_name:
-    listen_port:
-    db_uri:
-    db_copy:
-    pidfile:
-    logconf:
-    super_pwd:
-    cron:
-    smtp_max_connections:
-    dev:
-    verbose:
-```
-
-* Log Tryton Configuration files
-```YAML
-log_configuration_files:         # List of Trytond log configuration files
-  - file_name:
-    log_path:
-    logger_level:
-    handler_level:
-```
-
-* Galatea Config
-```YAML
-galatea_path:
-galatea_debug:
-galatea_debug_log:
-galatea_error_log:
-galatea_admins:
-galatea_title:
-galatea_session_cookie_name:
-galatea_cache_dir:
-galatea_media_folder:
-galatea_media_cache_folder:
-galatea_redirect_after_login:
-galatea_tryton_database:
-galatea_tryton_user:
-galatea_tryton_config:
-```
-
-* uWSGI Config
-```YAML
-# %k is a magic var translated to the number of cpu cores
-uwsgi_min_workers: '%(%k * 1/2)'
-uwsgi_init_workers: 1
-uwsgi_max_workers: '%k'
-uwsgi_listen_queue: 100
-```
-
-* Tryton Environment Variables to OTRS integration
-```YAML
-otrs_salt:
-otrs_rpc_url:
-otrs_rpc_user:
-otrs_rpc_passw:
-otrs_url:       # Base URL of the OTRS server to connect to
-otrs_user:      # User used to authenticate when using requests to `otrs_url`
-otrs_passw:     # Password used to authenticate when using requests to `otrs_url`
-```
-
-* Tryton Environment Variables to OpenCell integration
-```YAML
-opencell_url:                   # Opencell URL
-opencell_user:                  # Opencell User
-opencell_password:              # Opencell Password
-```
-
-* Tryton Celery variables
-```YAML
-celery_tryton_database:         # Database name to use in Celery process
-celery_user:                    # User to talk with RabbitMQ
-celery_password:                # Password to the user to talk with RabbitMQ
-celery_host:                    # Host of RabbitMQ server
-celery_port:                    # RabbitMQ port
-celery_vhost:                   # VHost RabbitMQ
-```
-
-* Flower variables
-```YAML
-flower_user:                    # User password to access to the Flower UI
-flower_password:                # Password to access to the Flower UI
-```
-
-* FTP management variables
-```YAML
-ftp_user:                       # FTP user. Use a specific user to connect the FTP
-ftp_password:                   # FTP password
-ftp_password_salt:              # FTP password SALT to excrypt it
-```
-
-## Ansible Community Roles
-
-To download the community roles, you can run:
-```
-ansible-galaxy install -r requirements.yml
-```
-
-### List of Galaxy roles:
-
-* [SysAdmins Role](https://galaxy.ansible.com/coopdevs/sys-admins-role)
-* [PostgreSQL Role](https://galaxy.ansible.com/geerlingguy.postgresql)
-* [NodeJS Role](https://galaxy.ansible.com/geerlingguy.nodejs)
 
 ## Production
 
-To allow to use the nominal users in production, we need add the users to the `ssh-users` group because is the only group allowed to access via SSH.
+To have access to the production environment with your own user you need to be added to the `ssh-users` group. That's the only group allowed to access via SSH.
 
-For now, we can use:
+You can do that by running the following:
 
 ```
 $ sudo usermod -a -G ssh-users <user-name>
 ```
-
-## Devenv
-
-We use [`devenv`](https://github.com/coopdevs/devenv) tool to manage the development environment. Check the `.devenv` configuration file.
-
-Install and run `devenv` to start a development environment.
-
-## Contributing
-
-1. Fork it (<https://github.com/coopdevs/tryton_provision>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
