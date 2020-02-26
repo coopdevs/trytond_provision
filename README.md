@@ -33,7 +33,7 @@ $ pip install -r requirements.txt
 After installing Ansible, we need to download and install the project dependencies:
 
 ```commandline
-$ ansible-galaxy install -r requirements.yml
+$ pyenv exec ansible-galaxy install -r requirements.yml
 ```
 
 ## Giving access to the server
@@ -96,25 +96,25 @@ system_administrators:            # List of system administrators added to the g
 The first time you run it against a brand new host you need to run it as root user. You'll also need passwordless SSH access to the root user.
 
 ```commandline
-ansible-playbook playbooks/sys_admins.yml --limit dev -u root
+pyenv exec ansible-playbook playbooks/sys_admins.yml --limit dev -u root
 ```
 
 Run the sysadmin playbook:
 ```commandline
-ansible-playbook playbooks/sys_admins.yml --limit dev -u USER
+pyenv exec ansible-playbook playbooks/sys_admins.yml --limit dev -u USER
 ```
 
 For the following executions, the script will assume that your user is included in the system administrators list for the given host.
 To run the playbook as a system administrator just use the following command:
 
 ```commandline
-ansible-playbook playbooks/sys_admins.yml --limit dev
+pyenv exec ansible-playbook playbooks/sys_admins.yml --limit dev
 ```
 
 Ansible will try to connect to the host using the system user. If your user as a system administrator is different than your local system user please run this playbook with the correct user using the -u flag.
 
 ```commandline
-$ ansible-playbook playbooks/sys_admins.yml --limit dev -u <username>
+$ pyenv exec ansible-playbook playbooks/sys_admins.yml --limit dev -u <username>
 ```
 
 Once this is done, you can check if it works with:
@@ -142,7 +142,7 @@ This playbook does:
 
 To use, run:
 ```commandline
-$ ansible-playbook playbooks/provision.yml -u USER -l HOSTGROUP --ask-vault-pass
+$ pyenv exec ansible-playbook playbooks/provision.yml -u USER -l HOSTGROUP --ask-vault-pass
 ```
 
 ### Installng and configuring a FTP server - `playbooks/ftp.yml`
