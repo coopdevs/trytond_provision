@@ -64,10 +64,10 @@ This will create an LXC container based on Debian Stretch. Now, read [#ansible-p
 
 Fix problem with #14
 
-Before continue with the documentation, please fix the mount directory in the LXC Configuration file (`/var/lxc/somconnexio/config`). Open the file with Vim:
+Before continue with the documentation, please fix the mount directory in the LXC Configuration file (`/var/lib/lxc/somconnexio/config`). Run:
 
 ```commandline
-sudo vim /var/lxc/somconnexio/config
+sudo vim /var/lib/lxc/somconnexio/config
 ```
 
 From vim, run the command `:%s/opt/home\/administrator/g` and save.
