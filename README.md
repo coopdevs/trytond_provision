@@ -36,6 +36,18 @@ After installing Ansible, we need to download and install the project dependenci
 $ ansible-galaxy install -r requirements.yml
 ```
 
+## Giving access to the server
+
+There are two access levels to the server: app or admin access. The former can deploy, modify or start/stop/restart the app while the latter has full access to server's configuration.
+
+### App access
+
+In order to access the server your SSH key should be listed in `tryton_user_keys`. You should open a pull request. You can use [#79](https://github.com/coopdevs/trytond_provision/pull/79) as example.
+
+### Admin access
+
+Admin access is controled with [playbooks/sys_admins.yml](https://github.com/coopdevs/trytond_provision/blob/master/playbooks/sys_admins.yml). For that playbook to take you into account your SSH key should be listed in `system_administrators`. Check out [Create System Administrators users - `playbooks/sys_admins.yml`](#Create-System-Administrators-users---`playbooks/sys_admins.yml`) for more details.
+
 ## Development
 
 You can use `devenv` to create an LXC container that you can use to provision a Tryton server. See https://github.com/coopdevs/devenv.
