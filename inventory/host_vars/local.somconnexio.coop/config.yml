@@ -41,3 +41,6 @@ opencell_url: 'https://opencell-test.coopdevs.org/opencell'
 
 # Bugsnag
 bugsnag_release_stage: development
+
+bugsnag_api_key: ''
+bugsnag_project_root: ''
