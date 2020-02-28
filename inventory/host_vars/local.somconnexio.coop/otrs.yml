@@ -1,0 +1,8 @@
+otrs_db_user: otrs
+otrs_db_password: ''
+
+otrs_rpc_user: ''
+otrs_rpc_passw: ''
+
+otrs_user: ''
+otrs_password: ''

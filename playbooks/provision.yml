@@ -20,11 +20,6 @@
             password: '{{ db_user_password }}'
             role_attr_flags: CREATEDB
             port: '{{ db_port }}'
-          - name: '{{ otrs_db_user }}'
-            password: '{{ otrs_db_password }}'
-            priv: party_otrs_view:SELECT/otrs_contract:SELECT
-            db: '{{ db_name }}'
-            port: '{{ db_port }}'
           - name: '{{ tryton_user }}'
             role_attr_flags: SUPERUSER
             port: '{{ db_port }}'
@@ -67,6 +62,7 @@
 
     - role: rabbitmq
       tags: rabbitmq
+      when: not development_environment
 
     - role: systemd_service
       tags: service

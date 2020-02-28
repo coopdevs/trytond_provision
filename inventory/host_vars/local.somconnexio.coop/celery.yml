@@ -1,0 +1,5 @@
+---
+celery_user: 'eticom'
+celery_password: ''
+celery_port: 5672
+celery_vhost: 'eticom'
