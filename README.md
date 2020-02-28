@@ -4,6 +4,24 @@ Ansible project to provision and deploy a [Tryton](http://www.tryton.org/) 3.8 s
 
 This is intended to be used with Som Connexió's own Tryton repository: https://gitlab.com/coopdevs/somconnexio-tryton-root-project.
 
+<!-- vim-markdown-toc GitLab -->
+
+* [Requirements](#requirements)
+* [Development](#development)
+   * [Fix mount directory](#fix-mount-directory)
+* [Giving access to the server](#giving-access-to-the-server)
+   * [App access](#app-access)
+   * [Admin access](#admin-access)
+* [Production](#production)
+* [Ansible playbooks](#ansible-playbooks)
+   * [Create System Administrators users - `playbooks/sys_admins.yml`](#create-system-administrators-users-playbookssys_adminsyml)
+   * [Provision - `playbooks/provision.yml`](#provision-playbooksprovisionyml)
+   * [Installing and configuring a FTP server - `playbooks/ftp.yml`](#installing-and-configuring-a-ftp-server-playbooksftpyml)
+   * [Further development requirements](#further-development-requirements)
+   * [Manual: Create the database](#manual-create-the-database)
+
+<!-- vim-markdown-toc -->
+
 ## Requirements
 
 This project has been thought to be run against a Debian 9.0 (Stretch) machine.
@@ -35,19 +53,6 @@ After installing Ansible, we need to download and install the project dependenci
 ```commandline
 $ pyenv exec ansible-galaxy install -r requirements.yml
 ```
-
-## Giving access to the server
-
-There are two access levels to the server: app or admin access. The former can deploy, modify or start/stop/restart the app while the latter has full access to server's configuration.
-
-### App access
-
-In order to access the server your SSH key should be listed in `tryton_user_keys`. You should open a pull request. You can use [#79](https://github.com/coopdevs/trytond_provision/pull/79) as example.
-
-### Admin access
-
-Admin access is controled with [playbooks/sys_admins.yml](https://github.com/coopdevs/trytond_provision/blob/master/playbooks/sys_admins.yml). For that playbook to take you into account your SSH key should be listed in `system_administrators`. Check out [Create System Administrators users - `playbooks/sys_admins.yml`](#Create-System-Administrators-users---`playbooks/sys_admins.yml`) for more details.
-
 ## Development
 
 You can use `devenv` to create an LXC container that you can use to provision a Tryton server. See https://github.com/coopdevs/devenv.
@@ -74,11 +79,33 @@ From vim, run the command `:%s/opt/home\/administrator/g` and save.
 
 Restart the container and continue with the documentation.
 
+## Giving access to the server
+
+There are two access levels to the server: app or admin access. The former can deploy, modify or start/stop/restart the app while the latter has full access to server's configuration.
+
+### App access
+
+In order to access the server your SSH key should be listed in `tryton_user_keys`. You should open a pull request. You can use [#79](https://github.com/coopdevs/trytond_provision/pull/79) as example.
+
+### Admin access
+
+Admin access is controled with [playbooks/sys_admins.yml](https://github.com/coopdevs/trytond_provision/blob/master/playbooks/sys_admins.yml). For that playbook to take you into account your SSH key should be listed in `system_administrators`. Check out [Create System Administrators users - `playbooks/sys_admins.yml`](#Create-System-Administrators-users---`playbooks/sys_admins.yml`) for more details.
+
+## Production
+
+To have access to the production environment with your own user you need to be added to the `ssh-users` group. That's the only group allowed to access via SSH.
+
+You can do that by running the following:
+
+```
+$ sudo usermod -a -G ssh-users <user-name>
+```
+
 ## Ansible playbooks
 
 ### Create System Administrators users - `playbooks/sys_admins.yml`
 
-This playbook uses Copodevs' [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) to manage the system administrators users.
+This playbook uses Coopdevs' [`sys-admins` role](https://github.com/coopdevs/sys-admins-role) to manage the system administrators users.
 
 By default a user is created in the target machine, with the public key of your current user assigned.
 
@@ -145,7 +172,7 @@ To use, run:
 $ pyenv exec ansible-playbook playbooks/provision.yml -u USER -l HOSTGROUP --ask-vault-pass
 ```
 
-### Installng and configuring a FTP server - `playbooks/ftp.yml`
+### Installing and configuring a FTP server - `playbooks/ftp.yml`
 
 This playbook uses the [`vsftpd` role](https://github.com/weareinteractive/vsftpd) to manage the FTP server.
 
@@ -170,14 +197,4 @@ With this done, you can manage the app with the following scripts.
 ./up                        - Start the Tryton server
 ./up-web                    - Start the web forms
 ./update <module_name>      - Update Tryton modules
-```
-
-## Production
-
-To have access to the production environment with your own user you need to be added to the `ssh-users` group. That's the only group allowed to access via SSH.
-
-You can do that by running the following:
-
-```
-$ sudo usermod -a -G ssh-users <user-name>
 ```
