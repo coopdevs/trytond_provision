@@ -77,7 +77,13 @@ sudo vim /var/lib/lxc/somconnexio/config
 
 From vim, run the command `:%s/opt/home\/administrator/g` and save.
 
-Restart the container and continue with the documentation.
+Note that if you need to develop web forms, you'll also need to add an extra mount entry like
+
+```
+lxc.mount.entry = <path_to_your_webforms_repo> /var/lib/lxc/somconnexio/rootfs/home/administrator/eticom/wwweticom none bind,create=dir 1.0
+```
+
+Now, restart the container and continue with the documentation.
 
 ## Giving access to the server
 
