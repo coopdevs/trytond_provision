@@ -12,4 +12,4 @@ system_administrators:
     state: present
   - name: ferran
     ssh_key: '{{ inventory_dir }}/../file/keys/ferran.pub'
-    state: present
+    state: absent
