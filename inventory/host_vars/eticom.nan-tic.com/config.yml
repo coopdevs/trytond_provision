@@ -10,6 +10,3 @@ system_administrators:
   - name: pau
     ssh_key: '{{ inventory_dir }}/../file/keys/pau.pub'
     state: present
-  - name: ferran
-    ssh_key: '{{ inventory_dir }}/../file/keys/ferran.pub'
-    state: absent
