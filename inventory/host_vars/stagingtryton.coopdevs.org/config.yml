@@ -13,6 +13,8 @@ tryton_user_keys:
     state: present
   - ssh_key: '{{ inventory_dir }}/../file/keys/pau.pub'
     state: present
+  - ssh_key: '{{ inventory_dir }}/../file/keys/gerard.pub'
+    state: present
 
 trytond_db_uri: 'postgresql://{{ db_user }}:{{ db_user_password }}@localhost:{{ db_port }}/{{ db_name }}'
 uwsgi_config: 'server-eticom-staging.ini'
