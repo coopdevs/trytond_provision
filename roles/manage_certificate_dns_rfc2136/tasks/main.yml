@@ -1,0 +1,39 @@
+---
+- name: Add certbot repository
+  apt_repository:
+    repo: 'ppa:certbot/certbot'
+    state: present
+  when: ansible_facts['distribution'] != "Debian"
+
+- name: Install certbot
+  package:
+    name: "certbot={{ certbot_version }}"
+    state: present
+
+- name: Install certbot-dns-rfc2136 plugin
+  package:
+    name: "python3-certbot-dns-rfc2136={{ certbot_dns_rfc2136_version }}"
+    state: present
+
+- name: Copy credentials to manage the DNS register
+  template:
+    src: certbot-rfc2136-creds.ini.j2
+    dest: /opt/certbot-rfc2136-creds.ini
+    mode: '0600'
+
+- name: Check if certificate already exists
+  stat:
+    path: "/etc/letsencrypt/live/{{ dns_rfc2136_domain_name }}/cert.pem"
+  register: letsencrypt_cert
+
+- name: Generate new certificate if one doesn't exist
+  shell: "certbot certonly \
+    -m '{{ dns_rfc2136_letsencrypt_email }}' \
+    -d '{{ dns_rfc2136_domain_name }}' \
+    --dns-rfc2136 \
+    --dns-rfc2136-credentials=/opt/certbot-rfc2136-creds.ini \
+    --dns-rfc2136-propagation-seconds=20 \
+    --preferred-challenges=dns-01 \
+    --agree-tos \
+    {% if dns_rfc2136_letsencrypt_staging %} --staging {% endif %}"
+  when: not letsencrypt_cert.stat.exists
