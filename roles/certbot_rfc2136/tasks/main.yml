@@ -37,3 +37,12 @@
     --agree-tos \
     {% if certbot_rfc2136_letsencrypt_staging %} --staging {% endif %}"
   when: not letsencrypt_cert.stat.exists
+
+- name: Fetch certificate
+  fetch:
+    src: "/etc/letsencrypt/live/{{ certbot_rfc2136_domain_name }}/{{ item }}"
+    dest: "/tmp/{{ certbot_rfc2136_domain_name }}/"
+    flat: yes
+  loop:
+    - fullchain.pem
+    - privkey.pem
