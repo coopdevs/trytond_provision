@@ -2,9 +2,9 @@
 - name: Create certificate with DNS RFC2136 certbot plugin
   hosts: staging
   roles:
-    - role: manage_certificate_dns_rfc2136
+    - role: certbot_rfc2136
       become: yes
       vars:
-        dns_rfc2136_letsencrypt_email: '{{ certificate_authority_email }}'
+        certbot_rfc2136_letsencrypt_email: '{{ certificate_authority_email }}'
         certbot_version: "0.28.0-1~deb9u2"
-        certbot_dns_rfc2136_version: "0.24.0-2~bpo9+1"
+        certbot_rfc2136_version: "0.24.0-2~bpo9+1"
