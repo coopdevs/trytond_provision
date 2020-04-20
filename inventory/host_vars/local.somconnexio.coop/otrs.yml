@@ -1,3 +1,4 @@
+---
 otrs_db_user: otrs
 otrs_db_password: ''
 
@@ -6,3 +7,5 @@ otrs_rpc_passw: ''
 
 otrs_user: ''
 otrs_password: ''
+
+otrs_add_coverage_info_enabled: False
