@@ -5,6 +5,9 @@ OTRS_RPC_PASSW="{{ otrs_rpc_passw }}"
 OTRS_URL="{{ otrs_url }}"
 OTRS_USER="{{ otrs_user }}"
 OTRS_PASSW="{{ otrs_password }}"
+{% if otrs_add_coverage_info_enabled | default(false) %}
+OTRS_ADD_COVERAGE_INFO_ENABLED="{{ otrs_add_coverage_info_enabled }}"
+{% endif %}
 
 # Celery Tryton vars
 TRYTON_DATABASE="{{ tryton_database }}"
