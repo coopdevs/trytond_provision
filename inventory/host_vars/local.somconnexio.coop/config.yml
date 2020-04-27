@@ -43,3 +43,4 @@ bugsnag_api_key: ''
 bugsnag_project_root: ''
 
 bugsnag_som_connexio_tryton_module_api_key: ''
+bugsnag_opencell_somconnexio_tryton_api_key: ''
