@@ -151,7 +151,7 @@ PyYAML==3.12
 RBTools==0.7.9
 redsys==0.2.1
 relatorio==0.6.4
-requests==2.20.0
+requests==2.23.0
 requests-toolbelt==0.8.0
 retrofix==0.23.1
 scandir==1.5
