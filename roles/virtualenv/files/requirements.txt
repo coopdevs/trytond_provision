@@ -147,7 +147,7 @@ python-stdnum==1.8.1
 pytz==2016.10
 pyusb==1.0.0
 PyWebDAV==0.9.8
-PyYAML==3.12
+PyYAML==5.1
 RBTools==0.7.9
 redsys==0.2.1
 relatorio==0.6.4
