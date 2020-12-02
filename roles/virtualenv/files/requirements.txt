@@ -107,7 +107,7 @@ passwordmeter==0.1.8
 path.py==10.1
 pathlib2==2.3.0
 pbr==1.10.0
-petl==1.1.1
+petl==1.6.8
 pexpect==4.2.1
 pg-activity==1.4.0
 pick==0.6.4
