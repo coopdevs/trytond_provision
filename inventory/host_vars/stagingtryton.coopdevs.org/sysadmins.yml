@@ -15,3 +15,6 @@ system_administrators:
   - name: bernat
     ssh_key: '{{ inventory_dir }}/../file/keys/bernat.nan-tic.pub'
     state: present
+  - name: cesar
+    ssh_key: '{{ inventory_dir }}/../file/keys/cesar.pub'
+    state: present
