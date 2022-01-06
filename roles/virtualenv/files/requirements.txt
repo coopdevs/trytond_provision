@@ -24,7 +24,7 @@ CairoSVG==1.0.22
 caldav==0.5.0
 # CDecimal 2.3 was deprecated https://pypi.org/project/cdecimal/2.3/
 http://www.bytereef.org/software/mpdecimal/releases/cdecimal-2.3.tar.gz
-celery==4.3.0
+celery==5.2.2
 celery-tryton==0.3
 certifi==2018.4.16
 cffi==1.9.1
