@@ -79,7 +79,7 @@ imagesize==0.7.1
 imaplib2==2.45.0
 invoke==0.12.2
 ipaddress==1.0.18
-ipython==5.4.1
+ipython==7.16.3
 ipython-genutils==0.2.0
 iso8601==0.1.12
 isodate==0.5.4
