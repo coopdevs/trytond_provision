@@ -89,7 +89,7 @@ Jinja2==2.9.5
 jsonrpclib==0.1.7
 kombu==4.2.2.post1
 langid==1.1.6
-lxml==3.7.3
+lxml==4.9.1
 magento==2.2
 markerlib==0.6.0
 MarkupSafe==0.23
