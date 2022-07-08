@@ -164,7 +164,7 @@ slug==1.0
 smmap2==2.0.1
 snowballstemmer==1.2.1
 Sphinx==1.5.2
-suds==0.4
+suds==1.0.0
 tabulate==0.7.7
 tinycss==0.4
 tornado==5.1.1
